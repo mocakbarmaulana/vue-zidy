@@ -5,28 +5,10 @@
 		</div>
 		<div class="cards flex justify-between flex-col sm:flex-row flex-wrap">
 			<div
-				class="
-					cards__card
-					p-5
-					m-2
-					flex
-					items-center
-					bg-[#FDB53C1A]
-					grow
-					rounded-lg
-				"
+				class="cards__card p-5 m-2 flex items-center bg-[#FDB53C1A] grow rounded-lg"
 			>
 				<div
-					class="
-						card__icon
-						bg-white
-						rounded-lg
-						w-16
-						h-16
-						flex
-						justify-center
-						items-center
-					"
+					class="card__icon bg-white rounded-lg w-16 h-16 flex justify-center items-center"
 				>
 					<Icon
 						icon="bxs:user-rectangle"
@@ -34,9 +16,7 @@
 					/>
 				</div>
 				<div class="card__info ml-4">
-					<span class="text-base font-normal leading-4"
-						>kontak HEHEHEHEHEHE</span
-					>
+					<span class="text-base font-normal leading-4">Contact</span>
 					<div class="card-value mt-2 flex">
 						<div class="card-value__number flex items-center">
 							<span class="text-[32px] font-medium">643</span>
@@ -48,28 +28,10 @@
 				</div>
 			</div>
 			<div
-				class="
-					cards__card
-					p-5
-					m-2
-					flex
-					items-center
-					bg-[#DCF3F0]
-					grow
-					rounded-lg
-				"
+				class="cards__card p-5 m-2 flex items-center bg-[#DCF3F0] grow rounded-lg"
 			>
 				<div
-					class="
-						card__icon
-						bg-white
-						rounded-lg
-						w-16
-						h-16
-						flex
-						justify-center
-						items-center
-					"
+					class="card__icon bg-white rounded-lg w-16 h-16 flex justify-center items-center"
 				>
 					<Icon
 						icon="bxs:user-rectangle"
@@ -91,28 +53,10 @@
 				</div>
 			</div>
 			<div
-				class="
-					cards__card
-					p-5
-					m-2
-					flex
-					items-center
-					bg-[#DCEFFA]
-					grow
-					rounded-lg
-				"
+				class="cards__card p-5 m-2 flex items-center bg-[#DCEFFA] grow rounded-lg"
 			>
 				<div
-					class="
-						card__icon
-						bg-white
-						rounded-lg
-						w-16
-						h-16
-						flex
-						justify-center
-						items-center
-					"
+					class="card__icon bg-white rounded-lg w-16 h-16 flex justify-center items-center"
 				>
 					<Icon
 						icon="bxs:user-rectangle"
@@ -134,29 +78,10 @@
 				</div>
 			</div>
 			<div
-				class="
-					cards__card
-					p-5
-					m-2
-					flex
-					items-center
-					bg-[#F8F6F2]
-					grow
-					rounded-lg
-				"
+				class="cards__card p-5 m-2 flex items-center bg-[#F8F6F2] grow rounded-lg"
 			>
 				<div
-					class="
-						card__icon
-						bg-white
-						p-4
-						rounded-lg
-						w-16
-						h-16
-						flex
-						justify-center
-						items-center
-					"
+					class="card__icon bg-white p-4 rounded-lg w-16 h-16 flex justify-center items-center"
 				>
 					<Icon
 						icon="bi:chat-left-text-fill"
