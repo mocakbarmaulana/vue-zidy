@@ -102,82 +102,30 @@
 					</div>
 				</div>
 			</div>
-			<!-- <div
-				class="cards__card flex flex-row justify-start bg-main-green-200 rounded-[12px] p-4 md:w-[24%] w-full md:mb-0 mb-4"
-			>
-				<div class="cards__card__icon bg-white p-5 rounded-[12px] mr-4">
-					<img src="#" alt="" />
-				</div>
-				<div
-					class="cards__card__info flex flex-col items-start justify-center"
-				>
-					<span class="text-base font-normal leading-4"
-						>Review Invites</span
-					>
-					<div class="card-value mt-2 flex">
-						<div class="card-value__number flex items-center">
-							<span class="text-[32px] font-medium">643</span>
-						</div>
-						<div class="card-value__text flex items-center pl-2">
-							<span class="font-normal text-normal">Total</span>
-						</div>
-					</div>
-				</div>
+		</div>
+	</section>
+
+	<section class="md:p2 px-0">
+		<div class="flex w-full flex-col xl:flex-row min-h-[300px]">
+			<div class="w-full xl:w-[50%] h-full p-10">
+				<chart-component />
 			</div>
-			<div
-				class="cards__card flex flex-row justify-start bg-[#DCEFFA] rounded-[12px] p-4 md:w-[24%] w-full md:mb-0 mb-4"
-			>
-				<div class="cards__card__icon bg-white p-5 rounded-[12px] mr-4">
-					<img src="#" alt="" />
-				</div>
-				<div
-					class="cards__card__info flex flex-col items-start justify-center"
-				>
-					<span class="text-base font-normal leading-4"
-						>Messages Sent</span
-					>
-					<div class="card-value mt-2 flex">
-						<div class="card-value__number flex items-center">
-							<span class="text-[32px] font-medium">643</span>
-						</div>
-						<div class="card-value__text flex items-center pl-2">
-							<span class="font-normal text-normal">Total</span>
-						</div>
-					</div>
-				</div>
+			<div class="w-full xl:w-[50%] h-full p-10">
+				<chart-component chart-wrapper="wrapper-two" />
 			</div>
-			<div
-				class="cards__card flex flex-row justify-start bg-[#F8F6F2] rounded-[12px] p-4 md:w-[24%] w-full md:mb-0 mb-4"
-			>
-				<div class="cards__card__icon bg-white p-5 rounded-[12px] mr-4">
-					<img src="#" alt="" />
-				</div>
-				<div
-					class="cards__card__info flex flex-col items-start justify-center"
-				>
-					<span class="text-base font-normal leading-4"
-						>Messages Recieved</span
-					>
-					<div class="card-value mt-2 flex">
-						<div class="card-value__number flex items-center">
-							<span class="text-[32px] font-medium">643</span>
-						</div>
-						<div class="card-value__text flex items-center pl-2">
-							<span class="font-normal text-normal">Total</span>
-						</div>
-					</div>
-				</div>
-			</div> -->
 		</div>
 	</section>
 </template>
 
 <script>
 import { Icon } from "@iconify/vue"
+import ChartComponent from "../components/Chart/ChartComponent.vue"
+
 export default {
 	name: "HomeView",
 	components: {
 		Icon,
+		ChartComponent,
 	},
 }
 </script>
