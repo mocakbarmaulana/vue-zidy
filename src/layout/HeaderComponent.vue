@@ -1,30 +1,9 @@
 <template>
 	<header
-		class="
-			fixed
-			top-0
-			md:w-[calc(100vw-90px)]
-			w-full
-			lg:bg-white lg:bg-none
-			h-[90px]
-			transition-all
-			duration-500
-			ease-in-out
-			bg-[#DCF3F0]
-		"
+		class="fixed top-0 md:w-[calc(100vw-90px)] w-full lg:bg-white lg:bg-none h-[90px] transition-all duration-500 ease-in-out bg-[#DCF3F0]"
 	>
 		<div
-			class="
-				header
-				flex
-				md:flex
-				flex-row
-				justify-between
-				w-full
-				items-center
-				h-full
-				px-8
-			"
+			class="header flex md:flex flex-row justify-between w-full items-center h-full px-8"
 		>
 			<nav class="burger__menu md:hidden">
 				<button
@@ -32,56 +11,16 @@
 					@click="toggleMenu"
 				>
 					<div
-						class="
-							block
-							w-5
-							absolute
-							left-1/2
-							top-1/2
-							transform
-							-translate-x-1/2 -translate-y-1/2
-						"
+						class="block w-5 absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"
 					>
 						<span
-							class="
-								block
-								absolute
-								h-0.5
-								w-5
-								colorPrimary-300
-								transform
-								transition
-								duration-500
-								ease-in-out
-								-translate-y-1.5
-							"
+							class="block absolute h-0.5 w-5 colorPrimary-300 transform transition duration-500 ease-in-out -translate-y-1.5"
 						></span>
 						<span
-							class="
-								block
-								absolute
-								h-0.5
-								w-5
-								colorPrimary-300
-								transform
-								transition
-								duration-500
-								ease-in-out
-							"
+							class="block absolute h-0.5 w-5 colorPrimary-300 transform transition duration-500 ease-in-out"
 						></span>
 						<span
-							class="
-								block
-								absolute
-								h-0.5
-								w-5
-								colorPrimary-300
-								transform
-								transition
-								duration-500
-								ease-in-out
-								translate-y-1.5
-							"
+							class="block absolute h-0.5 w-5 colorPrimary-300 transform transition duration-500 ease-in-out translate-y-1.5"
 						></span>
 					</div>
 				</button>
@@ -92,29 +31,30 @@
 			<div class="header__title hidden md:block">
 				<a
 					href="#"
-					class="
-						text-[28px]
-						leading-[31px]
-						fontColorDefault
-						font-medium
-					"
+					class="text-[28px] leading-[31px] fontColorDefault font-medium"
 					>Analytics</a
 				>
 			</div>
 			<div class="header__menu flex items-center">
 				<div class="header__menu__icon mr-4">
 					<a href="#" class="header__menu__icon__wrapper">
-						<img src="#" alt="" />
+						<Icon
+							icon="arcticons:google-authenticator"
+							class="text-2xl text-black"
+						/>
 					</a>
 				</div>
 				<div class="header__menu__icon mr-6">
 					<a href="#" class="header__menu__icon__wrapper">
-						<img src="#" alt="" />
+						<Icon icon="carbon:notification" class="text-2xl" />
 					</a>
 				</div>
-				<div class="header__menu__profile hidden md:flex">
+				<div class="header__menu__profile hidden md:flex items-center">
 					<div class="header__menu__profile__avatar mr-4">
-						<img src="#" alt="" />
+						<Icon
+							icon="carbon:user-avatar-filled"
+							class="text-4xl"
+						/>
 					</div>
 					<div class="header__menu__profile__text flex">
 						<div class="name-wrapper flex flex-col">
@@ -126,7 +66,7 @@
 							>
 						</div>
 						<div class="icon-wrapper flex items-center ml-2">
-							<img src="#" alt="" />
+							<Icon icon="fe:drop-down" class="text-2xl" />
 						</div>
 					</div>
 				</div>
@@ -137,7 +77,12 @@
 
 <script>
 import logobrand from "../assets/icons/logobrand.svg?url"
+import { Icon } from "@iconify/vue"
+
 export default {
+	components: {
+		Icon,
+	},
 	data() {
 		return {
 			logobrand,
