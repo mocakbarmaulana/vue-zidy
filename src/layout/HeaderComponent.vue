@@ -13,7 +13,6 @@
 			bg-[#DCF3F0]
 		"
 	>
-		<h1>Hello World</h1>
 		<div
 			class="
 				header
