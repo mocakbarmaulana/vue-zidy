@@ -19,7 +19,7 @@
 				"
 			>
 				<div class="cards__card__icon bg-white p-5 rounded-[12px] mr-4">
-					<img src="./img/contact.svg" alt="" />
+					<img src="#" alt="" />
 				</div>
 				<div
 					class="
@@ -55,7 +55,7 @@
 				"
 			>
 				<div class="cards__card__icon bg-white p-5 rounded-[12px] mr-4">
-					<img src="./img/contact-2.svg" alt="" />
+					<img src="#" alt="" />
 				</div>
 				<div
 					class="
@@ -93,7 +93,7 @@
 				"
 			>
 				<div class="cards__card__icon bg-white p-5 rounded-[12px] mr-4">
-					<img src="./img/contact-3.svg" alt="" />
+					<img src="#" alt="" />
 				</div>
 				<div
 					class="
@@ -131,7 +131,7 @@
 				"
 			>
 				<div class="cards__card__icon bg-white p-5 rounded-[12px] mr-4">
-					<img src="./img/contact-4.svg" alt="" />
+					<img src="#" alt="" />
 				</div>
 				<div
 					class="

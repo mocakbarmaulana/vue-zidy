@@ -87,7 +87,7 @@
 				</button>
 			</nav>
 			<figure class="header__logo self-center lg:hidden">
-				<img src="./img/logobrand.svg" alt="logo" />
+				<img :src="logobrand" alt="logo" />
 			</figure>
 			<div class="header__title hidden md:block">
 				<a
@@ -104,17 +104,17 @@
 			<div class="header__menu flex items-center">
 				<div class="header__menu__icon mr-4">
 					<a href="#" class="header__menu__icon__wrapper">
-						<img src="./img/google-icon.svg" alt="" />
+						<img src="#" alt="" />
 					</a>
 				</div>
 				<div class="header__menu__icon mr-6">
 					<a href="#" class="header__menu__icon__wrapper">
-						<img src="./img/notif-icon.svg" alt="" />
+						<img src="#" alt="" />
 					</a>
 				</div>
 				<div class="header__menu__profile hidden md:flex">
 					<div class="header__menu__profile__avatar mr-4">
-						<img src="./img/avatar.png" alt="" />
+						<img src="#" alt="" />
 					</div>
 					<div class="header__menu__profile__text flex">
 						<div class="name-wrapper flex flex-col">
@@ -126,7 +126,7 @@
 							>
 						</div>
 						<div class="icon-wrapper flex items-center ml-2">
-							<img src="./img/dropdown.svg" alt="" />
+							<img src="#" alt="" />
 						</div>
 					</div>
 				</div>
@@ -136,5 +136,12 @@
 </template>
 
 <script>
-export default {}
+import logobrand from "../assets/icons/logobrand.svg?url"
+export default {
+	data() {
+		return {
+			logobrand,
+		}
+	},
+}
 </script>
