@@ -34,9 +34,7 @@
 					/>
 				</div>
 				<div class="card__info ml-4">
-					<span class="text-base font-normal leading-4"
-						>kontak HEHEHEHEHEHE</span
-					>
+					<span class="text-base font-normal leading-4">Contact</span>
 					<div class="card-value mt-2 flex">
 						<div class="card-value__number flex items-center">
 							<span class="text-[32px] font-medium">643</span>
