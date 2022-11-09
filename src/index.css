@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* my class */
+.bg-main-green-200 {
+    @apply bg-[#DCF3F0];
+}
