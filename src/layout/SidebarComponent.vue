@@ -1,6 +1,10 @@
 <template>
 	<aside
 		class="fixed w-[70%] md:w-[90px] h-[calc(100vh-89px)] md:bg-[#4EC1B60F] bg-[#DCF3F0] md:h-screen top-[90px] md:top-0 transition-all duration-500 ease-in-out"
+		:class="{
+			'left-0': open,
+			'-left-full': !open,
+		}"
 	>
 		<nav
 			class="sidebar flex h-full md:flex flex-col justify-between w-full"
@@ -67,6 +71,12 @@ import logobrand from "../assets/icons/logobrand.svg?url"
 export default {
 	components: {
 		Icon,
+	},
+	props: {
+		open: {
+			type: Boolean,
+			default: false,
+		},
 	},
 	data() {
 		return {

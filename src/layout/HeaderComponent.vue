@@ -5,7 +5,7 @@
 		<div
 			class="header flex md:flex flex-row justify-between w-full items-center h-full px-8"
 		>
-			<nav class="burger__menu">
+			<nav class="burger__menu md:hidden">
 				<button
 					class="text-white w-10 h-10 relative focus:outline-none"
 					@click="toggleMenu"
@@ -92,6 +92,7 @@ export default {
 	components: {
 		Icon,
 	},
+	emits: ["isOpen"],
 	data() {
 		return {
 			logobrand,
@@ -101,6 +102,7 @@ export default {
 	methods: {
 		toggleMenu() {
 			this.open = !this.open
+			this.$emit("isOpen", this.open)
 		},
 	},
 }
