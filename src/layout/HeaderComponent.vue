@@ -6,7 +6,7 @@
 			md:w-[calc(100vw-90px)]
 			w-full
 			lg:bg-white lg:bg-none
-			h-[89px]
+			h-[90px]
 			transition-all
 			duration-500
 			ease-in-out

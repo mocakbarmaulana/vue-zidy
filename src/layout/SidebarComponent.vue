@@ -28,7 +28,7 @@
 						items-center
 					"
 				>
-					<img src="./img/logobrand.svg" alt="" />
+					<img :src="logobrand" alt="" />
 				</div>
 				<div class="sidebar__menu__wrapper flex justify-center">
 					<a
@@ -162,9 +162,16 @@
 
 <script>
 import { Icon } from "@iconify/vue"
+import logobrand from "../assets/icons/logobrand.svg?url"
+
 export default {
 	components: {
 		Icon,
+	},
+	data() {
+		return {
+			logobrand,
+		}
 	},
 }
 </script>
