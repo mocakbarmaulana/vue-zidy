@@ -7,20 +7,29 @@
 		>
 			<nav class="burger__menu md:hidden">
 				<button
-					class="text-gray-500 w-10 h-10 relative focus:outline-none"
+					class="text-white w-10 h-10 relative focus:outline-none"
 					@click="toggleMenu"
 				>
 					<div
 						class="block w-5 absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"
 					>
 						<span
-							class="block absolute h-0.5 w-5 colorPrimary-300 transform transition duration-500 ease-in-out -translate-y-1.5"
+							class="block absolute h-0.5 w-5 bg-[#4EC1B6] transform transition duration-500 ease-in-out"
+							:class="{
+								'rotate-45': open,
+								' -translate-y-1.5': !open,
+							}"
 						></span>
 						<span
-							class="block absolute h-0.5 w-5 colorPrimary-300 transform transition duration-500 ease-in-out"
+							class="block absolute h-0.5 w-5 bg-[#4EC1B6] transform transition duration-500 ease-in-out"
+							:class="{ 'opacity-0': open }"
 						></span>
 						<span
-							class="block absolute h-0.5 w-5 colorPrimary-300 transform transition duration-500 ease-in-out translate-y-1.5"
+							class="block absolute h-0.5 w-5 bg-[#4EC1B6] transform transition duration-500 ease-in-out"
+							:class="{
+								'-rotate-45': open,
+								' translate-y-1.5': !open,
+							}"
 						></span>
 					</div>
 				</button>
@@ -83,10 +92,20 @@ export default {
 	components: {
 		Icon,
 	},
+	emits: ["isOpen"],
 	data() {
 		return {
 			logobrand,
+			open: false,
 		}
+	},
+	methods: {
+		toggleMenu() {
+			this.open = !this.open
+			this.$emit("isOpen", this.open)
+		},
 	},
 }
 </script>
+
+<style scoped></style>
