@@ -24,6 +24,9 @@
 					:class="{
 						'rounded-t': index === 0,
 						'rounded-b': index === options.length - 1,
+						'bg-gray-100':
+							selected !== null &&
+							selected.value === option.value,
 					}"
 					@click="selectedOption(option)"
 				>
