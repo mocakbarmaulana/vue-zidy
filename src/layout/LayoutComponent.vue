@@ -1,8 +1,8 @@
 <template>
-	<sidebar-component />
+	<sidebar-component :open="open" />
 
 	<main class="main md:ml-[90px]">
-		<header-component />
+		<header-component @is-open="isOpen" />
 
 		<div class="main__content mt-[90px]">
 			<router-view />
@@ -19,8 +19,17 @@ export default {
 		SidebarComponent,
 		HeaderComponent,
 	},
+	data() {
+		return {
+			open: false,
+		}
+	},
+	methods: {
+		isOpen(val) {
+			this.open = val
+		},
+	},
 }
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
