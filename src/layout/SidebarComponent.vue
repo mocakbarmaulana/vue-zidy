@@ -18,26 +18,38 @@
 				<div
 					class="sidebar__menu__wrapper flex justify-start md:justify-center px-5 md:px-0"
 				>
-					<a
-						class="sidebar__menu__wrapper__item w-full md:w-fit flex items-start justify-start md:justify-center p-3 rounded-[8px] bg-transparent hover:bg-[#4EC1B6] cursor-pointer transition hover:text-white mb-2"
+					<router-link
+						to="/"
+						class="sidebar__menu__wrapper__item w-full md:w-fit flex items-start justify-start md:justify-center p-3 rounded-[8px] hover:bg-[#4EC1B6] cursor-pointer transition hover:text-white mb-2"
+						:class="{
+							'bg-[#4EC1B6]': $route.path === '/',
+							'text-white': $route.path === '/',
+						}"
+						@click="clickNav"
 					>
 						<Icon icon="akar-icons:people-group" class="text-xl" />
 						<span class="sidebar__menu__item--text md:hidden ml-2"
 							>All Contact</span
 						>
-					</a>
+					</router-link>
 				</div>
 				<div
 					class="sidebar__menu__wrapper flex justify-start md:justify-center px-5 md:px-0"
 				>
-					<a
-						class="sidebar__menu__wrapper__item w-full md:w-fit flex items-start justify-start md:justify-center p-3 rounded-[8px] bg-transparent hover:bg-[#4EC1B6] cursor-pointer transition hover:text-white mb-2"
+					<router-link
+						to="/chat"
+						class="sidebar__menu__wrapper__item w-full md:w-fit flex items-start justify-start md:justify-center p-3 rounded-[8px] hover:bg-[#4EC1B6] cursor-pointer transition hover:text-white mb-2"
+						:class="{
+							'bg-[#4EC1B6]': $route.path === '/chat',
+							'text-white': $route.path === '/chat',
+						}"
+						@click="clickNav"
 					>
 						<Icon icon="bi:chat-dots" class="text-xl" />
 						<span class="sidebar__menu__item--text md:hidden ml-2"
 							>Start Conversation</span
 						>
-					</a>
+					</router-link>
 				</div>
 				<div
 					class="sidebar__menu__wrapper flex justify-start md:justify-center px-5 md:px-0"
@@ -108,6 +120,7 @@
 
 <script>
 import { Icon } from "@iconify/vue"
+import { useRoute } from "vue-router"
 import logobrand from "../assets/icons/logobrand.svg?url"
 import avatar from "../assets/icons/avatar.svg?url"
 
@@ -121,13 +134,28 @@ export default {
 			default: false,
 		},
 	},
+	emits: ["clicked-nav"],
 	data() {
 		return {
 			icons: {
 				logobrand,
 				avatar,
 			},
+			pathname: "",
 		}
+	},
+	watch: {
+		$route() {
+			this.pathname = this.$route.path
+		},
+	},
+	mounted() {
+		this.pathname = useRoute().path
+	},
+	methods: {
+		clickNav() {
+			this.$emit("clicked-nav")
+		},
 	},
 }
 </script>

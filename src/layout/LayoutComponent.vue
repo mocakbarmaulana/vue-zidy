@@ -1,8 +1,8 @@
 <template>
-	<sidebar-component :open="open" />
+	<sidebar-component :open="open" @clicked-nav="clickedNav" />
 
 	<main class="main md:ml-[90px]">
-		<header-component @is-open="isOpen" />
+		<header-component :open="open" @is-open="isOpen" />
 
 		<div class="main__content mt-[90px]">
 			<router-view />
@@ -33,7 +33,12 @@ export default {
 	},
 	methods: {
 		isOpen(val) {
+			console.log(val)
 			this.open = val
+		},
+		clickedNav() {
+			this.open = false
+			// this.isOpen = false
 		},
 	},
 }
