@@ -11,8 +11,8 @@
 					class="card__icon bg-white rounded-lg w-16 h-16 flex justify-center items-center"
 				>
 					<Icon
-						icon="bxs:user-rectangle"
-						class="text-4xl text-yellow-400"
+						icon="ic:round-contact-page"
+						class="text-5xl text-yellow-400"
 					/>
 				</div>
 				<div class="card__info ml-4">
@@ -34,8 +34,8 @@
 					class="card__icon bg-white rounded-lg w-16 h-16 flex justify-center items-center"
 				>
 					<Icon
-						icon="bxs:user-rectangle"
-						class="text-4xl text-[#4ec1b6]"
+						icon="material-symbols:check-box-rounded"
+						class="text-5xl text-[#4ec1b6]"
 					/>
 				</div>
 				<div class="card__info ml-4">
@@ -56,12 +56,14 @@
 				class="cards__card p-5 m-2 flex items-center bg-[#DCEFFA] grow rounded-lg"
 			>
 				<div
-					class="card__icon bg-white rounded-lg w-16 h-16 flex justify-center items-center"
-				>
-					<Icon
-						icon="bxs:user-rectangle"
-						class="text-4xl text-[#4fafe7]"
+					class="card__icon bg-white rounded-lg w-16 h-16 flex justify-center items-center">
+					<div class="icon__wrapper p-2 bg-[#4FAFE7] rounded-md">
+						<Icon
+						icon="fluent:send-28-filled"
+						class="text-[20px] text-[#ffffff]"
 					/>
+					</div>
+					
 				</div>
 				<div class="card__info ml-4">
 					<span class="text-base font-normal leading-4"
@@ -83,10 +85,12 @@
 				<div
 					class="card__icon bg-white p-4 rounded-lg w-16 h-16 flex justify-center items-center"
 				>
-					<Icon
+					<div class="icon__wrapper p-2 bg-[#7C725F] rounded-md">
+						<Icon
 						icon="bi:chat-left-text-fill"
-						class="text-4xl bg-[#7c725f] text-white p-1 rounded"
+						class="text-[20px] bg-[#7c725f] text-white"
 					/>
+					</div>
 				</div>
 				<div class="card__info ml-4">
 					<span class="text-base font-normal leading-4"
@@ -162,6 +166,9 @@ import ChartComponent from "../components/Chart/ChartComponent.vue"
 import SelectFly from "../components/Select/Select.vue"
 import ChartDirection from "../components/Chart/ChartDirection.vue"
 
+import send from "../assets/icons/send.svg?url"
+
+
 export default {
 	name: "HomeView",
 	components: {
@@ -172,6 +179,9 @@ export default {
 	},
 	data() {
 		return {
+			icons: {
+				send,
+			},
 			options: [
 				{ value: "jan", label: "January" },
 				{ value: "feb", label: "February" },

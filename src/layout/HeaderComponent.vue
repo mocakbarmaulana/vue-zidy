@@ -47,15 +47,13 @@
 			<div class="header__menu flex items-center">
 				<div class="header__menu__icon mr-4">
 					<a href="#" class="header__menu__icon__wrapper">
-						<Icon
-							icon="arcticons:google-authenticator"
-							class="text-2xl text-black"
-						/>
+						<img :src="google" alt="logo" />
+
 					</a>
 				</div>
 				<div class="header__menu__icon mr-6">
 					<a href="#" class="header__menu__icon__wrapper">
-						<Icon icon="carbon:notification" class="text-2xl" />
+						<img :src="bell" alt="logo" />
 					</a>
 				</div>
 				<div class="header__menu__profile hidden md:flex items-center">
@@ -86,6 +84,8 @@
 
 <script>
 import logobrand from "../assets/icons/logobrand.svg?url"
+import bell from "../assets/icons/bell.svg?url"
+import google from "../assets/icons/google.svg?url"
 import { Icon } from "@iconify/vue"
 
 export default {
@@ -96,6 +96,8 @@ export default {
 	data() {
 		return {
 			logobrand,
+			bell,
+			google,
 			open: false,
 		}
 	},
