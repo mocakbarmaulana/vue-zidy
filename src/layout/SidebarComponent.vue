@@ -1,9 +1,9 @@
 <template>
 	<aside
-		class="fixed w-full md:w-[90px] h-[calc(100vh-90px)] md:left-0 md:bg-[#4EC1B60F] bg-[#DCF3F0] md:h-screen top-[90px] md:top-0 transition-all duration-500 ease-in-out z-50"
+		class="fixed w-full md:w-[90px] h-screen md:left-0 md:bg-[#4EC1B60F] bg-[#DCF3F0] md:h-screen top-0 transition-all duration-500 ease-in-out z-50"
 		:class="{
-			'left-0': open,
-			'-left-full': !open,
+			'left-0': isSideBarOpen,
+			'-left-full': !isSideBarOpen,
 		}"
 	>
 		<nav
@@ -14,6 +14,26 @@
 					class="sidebar__menu__brand hidden h-[89px] md:flex justify-center items-center"
 				>
 					<img :src="icons.logobrand" alt="" />
+				</div>
+				<div
+					class="sidebar__menu__wrapper flex justify-start md:justify-center px-5 md:px-0 my-5 md:my-0 md:hidden"
+				>
+					<div
+						class="sidebar__menu__wrapper__item w-full md:w-fit flex items-center justify-between p-3 rounded-[8px] cursor-pointer transition hover:text-white mb-2"
+						@click="toggleSideBar"
+					>
+						<figure class="flex items-center">
+							<img
+								:src="icons.logobrandText"
+								alt="logo"
+								class="mr-2"
+							/>
+						</figure>
+						<Icon
+							icon="ci:close-small"
+							class="text-3xl bg-white text-[#4EC1B6] rounded-full shadow-lg hover:bg-[#4EC1B6] hover:text-white"
+						/>
+					</div>
 				</div>
 				<div
 					class="sidebar__menu__wrapper flex justify-start md:justify-center px-5 md:px-0"
@@ -98,18 +118,54 @@
 					</a>
 				</div>
 			</div>
-			<div class="sidebar__profile md:hidden flex px-5 mt-auto">
-				<div class="header__menu__profile__avatar mr-4">
-					<img :src="icons.avatar" alt="logo" class="rounded-lg" />
-				</div>
-				<div class="header__menu__profile__text flex mb-4">
-					<div class="name-wrapper flex flex-col">
-						<span class="text-[#676F7E] font-[16px]">Welcome</span>
-						<span class="font-medium text-[16px]"
-							>Danis Markonez</span
-						>
+			<div class="sidebar__profile md:hidden px-5 mt-auto">
+				<div
+					class="header__menu__icon mr-0 md:mr-6 w-14 md:hidden mb-2"
+				>
+					<div
+						class="relative z-10 flex items-center justify-between bg-[#F8F8FA] py-[0.4rem] after:absolute after:bg-[#4EC1B6] after:top-[50%] after:px-1 after:translate-y-[-50%] after:w-6 after:h-6 after:rounded-full after:transition-all after:duration-500 after:ease-in-out rounded-xl"
+						:class="{
+							'after:left-0': !darkMode,
+							'after:left-[50%] after:ml-1': darkMode,
+						}"
+					>
+						<Icon
+							icon="eva:sun-fill"
+							class="w-4 h-4 relative ml-1 left-0 z-10 transition-all duration-500 ease-in-out"
+							:class="{
+								'text-white': !darkMode,
+							}"
+							@click="toggleDarkMode"
+						/>
+						<Icon
+							icon="clarity:moon-solid"
+							class="w-4 h-4 relative mr-1 right-0 z-10 transition-all duration-500 ease-in-out"
+							:class="{
+								'text-white': darkMode,
+							}"
+							@click="toggleDarkMode"
+						/>
 					</div>
-					<div class="icon-wrapper flex items-center ml-2">
+				</div>
+				<div class="flex w-full">
+					<div class="header__menu__profile__avatar mr-4">
+						<img
+							:src="icons.avatar"
+							alt="logo"
+							class="rounded-lg"
+						/>
+					</div>
+					<div class="header__menu__profile__text flex mb-4">
+						<div class="name-wrapper flex flex-col">
+							<span class="text-[#676F7E] font-[16px]"
+								>Welcome</span
+							>
+							<span class="font-medium text-[16px]"
+								>Danis Markonez</span
+							>
+						</div>
+					</div>
+					<div class="icon-wrapper flex items-center ml-auto">
 						<Icon icon="fe:drop-down" class="text-2xl" />
 					</div>
 				</div>
@@ -122,17 +178,13 @@
 import { Icon } from "@iconify/vue"
 import { useRoute } from "vue-router"
 import logobrand from "../assets/icons/logobrand.svg?url"
+import logobrandText from "../assets/icons/logobrand-text.svg?url"
 import avatar from "../assets/icons/avatar.svg?url"
+import { mapState, mapActions } from "vuex"
 
 export default {
 	components: {
 		Icon,
-	},
-	props: {
-		open: {
-			type: Boolean,
-			default: false,
-		},
 	},
 	emits: ["clicked-nav"],
 	data() {
@@ -140,9 +192,13 @@ export default {
 			icons: {
 				logobrand,
 				avatar,
+				logobrandText,
 			},
 			pathname: "",
 		}
+	},
+	computed: {
+		...mapState(["isSideBarOpen", "darkMode"]),
 	},
 	watch: {
 		$route() {
@@ -153,8 +209,9 @@ export default {
 		this.pathname = useRoute().path
 	},
 	methods: {
+		...mapActions(["toggleSideBar", "toggleDarkMode"]),
 		clickNav() {
-			this.$emit("clicked-nav")
+			this.toggleSideBar()
 		},
 	},
 }

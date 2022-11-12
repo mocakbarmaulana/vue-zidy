@@ -1,8 +1,8 @@
 <template>
-	<sidebar-component :open="open" @clicked-nav="clickedNav" />
+	<sidebar-component />
 
 	<main class="main md:ml-[90px]">
-		<header-component :open="open" @is-open="isOpen" />
+		<header-component />
 
 		<div class="main__content mt-[90px]">
 			<router-view />
@@ -22,25 +22,14 @@ export default {
 	},
 	data() {
 		return {
-			open: false,
 			avatar: "",
 		}
 	},
 	async mounted() {
 		const result = await getUser()
 		this.avatar = result[0].picture.thumbnail
-		console.log("result", this.picture)
 	},
-	methods: {
-		isOpen(val) {
-			console.log(val)
-			this.open = val
-		},
-		clickedNav() {
-			this.open = false
-			// this.isOpen = false
-		},
-	},
+	methods: {},
 }
 </script>
 

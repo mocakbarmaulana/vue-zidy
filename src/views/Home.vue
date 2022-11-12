@@ -56,14 +56,14 @@
 				class="cards__card p-5 m-2 flex items-center bg-[#DCEFFA] grow rounded-lg"
 			>
 				<div
-					class="card__icon bg-white rounded-lg w-16 h-16 flex justify-center items-center">
+					class="card__icon bg-white rounded-lg w-16 h-16 flex justify-center items-center"
+				>
 					<div class="icon__wrapper p-2 bg-[#4FAFE7] rounded-md">
 						<Icon
-						icon="fluent:send-28-filled"
-						class="text-[20px] text-[#ffffff]"
-					/>
+							icon="fluent:send-28-filled"
+							class="text-[20px] text-[#ffffff]"
+						/>
 					</div>
-					
 				</div>
 				<div class="card__info ml-4">
 					<span class="text-base font-normal leading-4"
@@ -87,9 +87,9 @@
 				>
 					<div class="icon__wrapper p-2 bg-[#7C725F] rounded-md">
 						<Icon
-						icon="bi:chat-left-text-fill"
-						class="text-[20px] bg-[#7c725f] text-white"
-					/>
+							icon="bi:chat-left-text-fill"
+							class="text-[20px] bg-[#7c725f] text-white"
+						/>
 					</div>
 				</div>
 				<div class="card__info ml-4">
@@ -168,7 +168,6 @@ import ChartDirection from "../components/Chart/ChartDirection.vue"
 
 import send from "../assets/icons/send.svg?url"
 
-
 export default {
 	name: "HomeView",
 	components: {
@@ -207,7 +206,6 @@ export default {
 	methods: {
 		changeDirection(value) {
 			this.directionChart = value
-			console.log(value)
 		},
 		handeResize(value) {
 			if (value.target.innerWidth < 768) {
@@ -215,7 +213,6 @@ export default {
 			} else {
 				this.directionChart = "horizontal"
 			}
-			console.log(value)
 		},
 	},
 }
