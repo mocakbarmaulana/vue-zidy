@@ -118,20 +118,56 @@
 					</a>
 				</div>
 			</div>
-			<div class="sidebar__profile md:hidden px-5 mt-auto flex">
-				<div class="header__menu__profile__avatar mr-4">
-					<img :src="icons.avatar" alt="logo" class="rounded-lg" />
-				</div>
-				<div class="header__menu__profile__text flex mb-4">
-					<div class="name-wrapper flex flex-col">
-						<span class="text-[#676F7E] font-[16px]">Welcome</span>
-						<span class="font-medium text-[16px]"
-							>Danis Markonez</span
-						>
+			<div class="sidebar__profile md:hidden px-5 mt-auto">
+				<div
+					class="header__menu__icon mr-0 md:mr-6 w-14 md:hidden mb-2"
+				>
+					<div
+						class="relative z-10 flex items-center justify-between bg-[#F8F8FA] py-[0.4rem] after:absolute after:bg-[#4EC1B6] after:top-[50%] after:px-1 after:translate-y-[-50%] after:w-6 after:h-6 after:rounded-full after:transition-all after:duration-500 after:ease-in-out rounded-xl"
+						:class="{
+							'after:left-0': !darkMode,
+							'after:left-[50%] after:ml-1': darkMode,
+						}"
+					>
+						<Icon
+							icon="eva:sun-fill"
+							class="w-4 h-4 relative ml-1 left-0 z-10 transition-all duration-500 ease-in-out"
+							:class="{
+								'text-white': !darkMode,
+							}"
+							@click="toggleDarkMode"
+						/>
+						<Icon
+							icon="clarity:moon-solid"
+							class="w-4 h-4 relative mr-1 right-0 z-10 transition-all duration-500 ease-in-out"
+							:class="{
+								'text-white': darkMode,
+							}"
+							@click="toggleDarkMode"
+						/>
 					</div>
 				</div>
-				<div class="icon-wrapper flex items-center ml-auto">
-					<Icon icon="fe:drop-down" class="text-2xl" />
+				<div class="flex w-full">
+					<div class="header__menu__profile__avatar mr-4">
+						<img
+							:src="icons.avatar"
+							alt="logo"
+							class="rounded-lg"
+						/>
+					</div>
+					<div class="header__menu__profile__text flex mb-4">
+						<div class="name-wrapper flex flex-col">
+							<span class="text-[#676F7E] font-[16px]"
+								>Welcome</span
+							>
+							<span class="font-medium text-[16px]"
+								>Danis Markonez</span
+							>
+						</div>
+					</div>
+					<div class="icon-wrapper flex items-center ml-auto">
+						<Icon icon="fe:drop-down" class="text-2xl" />
+					</div>
 				</div>
 			</div>
 		</nav>
@@ -162,7 +198,7 @@ export default {
 		}
 	},
 	computed: {
-		...mapState(["isSideBarOpen"]),
+		...mapState(["isSideBarOpen", "darkMode"]),
 	},
 	watch: {
 		$route() {
@@ -173,7 +209,7 @@ export default {
 		this.pathname = useRoute().path
 	},
 	methods: {
-		...mapActions(["toggleSideBar"]),
+		...mapActions(["toggleSideBar", "toggleDarkMode"]),
 		clickNav() {
 			this.toggleSideBar()
 		},

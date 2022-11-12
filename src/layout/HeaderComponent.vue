@@ -52,15 +52,43 @@
 			<div
 				class="header__menu flex items-center justify-between md:justify-between"
 			>
-				<div class="header__menu__icon mr-4">
+				<div class="header__menu__icon mr-4 hidden md:block">
 					<a href="#" class="header__menu__icon__wrapper">
 						<img :src="icons.google" alt="logo" />
 					</a>
 				</div>
-				<div class="header__menu__icon mr-0 md:mr-6">
+				<div class="header__menu__icon md:mr-4">
 					<a href="#" class="header__menu__icon__wrapper">
 						<img :src="icons.bell" alt="logo" />
 					</a>
+				</div>
+				<div
+					class="header__menu__icon mr-0 md:mr-6 w-14 hidden md:block"
+				>
+					<div
+						class="relative z-10 flex items-center justify-between bg-[#F8F8FA] py-[0.4rem] after:absolute after:bg-[#4EC1B6] after:top-[50%] after:px-1 after:translate-y-[-50%] after:w-6 after:h-6 after:rounded-full after:transition-all after:duration-500 after:ease-in-out rounded-xl"
+						:class="{
+							'after:left-0': !darkMode,
+							'after:left-[50%] after:ml-1': darkMode,
+						}"
+					>
+						<Icon
+							icon="eva:sun-fill"
+							class="w-4 h-4 relative ml-1 left-0 z-10 transition-all duration-500 ease-in-out"
+							:class="{
+								'text-white': !darkMode,
+							}"
+							@click="toggleDarkMode"
+						/>
+						<Icon
+							icon="clarity:moon-solid"
+							class="w-4 h-4 relative mr-1 right-0 z-10 transition-all duration-500 ease-in-out"
+							:class="{
+								'text-white': darkMode,
+							}"
+							@click="toggleDarkMode"
+						/>
+					</div>
 				</div>
 				<div class="header__menu__profile hidden md:flex items-center">
 					<div class="header__menu__profile__avatar mr-4">
@@ -119,7 +147,7 @@ export default {
 		}
 	},
 	computed: {
-		...mapState(["isSideBarOpen"]),
+		...mapState(["isSideBarOpen", "darkMode"]),
 	},
 	watch: {
 		isSideBarOpen() {
@@ -127,7 +155,7 @@ export default {
 		},
 	},
 	methods: {
-		...mapActions(["toggleSideBar"]),
+		...mapActions(["toggleSideBar", "toggleDarkMode"]),
 		toggleMenu() {
 			this.$emit("isOpen", !this.open)
 		},
