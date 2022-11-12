@@ -1,6 +1,6 @@
 <template>
 	<header
-		class="fixed top-0 md:w-[calc(100vw-90px)] w-full lg:bg-white lg:bg-none h-[90px] transition-all duration-500 ease-in-out bg-[#DCF3F0]"
+		class="fixed top-0 md:w-[calc(100vw-90px)] w-full lg:bg-white lg:bg-none h-[90px] transition-all duration-500 ease-in-out border-b bg-[#DCF3F0] z-50"
 	>
 		<div
 			class="header flex md:flex flex-row justify-between w-full items-center h-full px-8"
@@ -35,7 +35,7 @@
 				</button>
 			</nav>
 			<figure class="header__logo self-center lg:hidden">
-				<img :src="logobrand" alt="logo" />
+				<img :src="icons.logobrand" alt="logo" />
 			</figure>
 			<div class="header__title hidden md:block">
 				<a
@@ -44,25 +44,25 @@
 					>Analytics</a
 				>
 			</div>
-			<div class="header__menu flex items-center">
+			<div
+				class="header__menu flex items-center justify-between md:justify-between"
+			>
 				<div class="header__menu__icon mr-4">
 					<a href="#" class="header__menu__icon__wrapper">
-						<Icon
-							icon="arcticons:google-authenticator"
-							class="text-2xl text-black"
-						/>
+						<img :src="icons.google" alt="logo" />
 					</a>
 				</div>
-				<div class="header__menu__icon mr-6">
+				<div class="header__menu__icon mr-0 md:mr-6">
 					<a href="#" class="header__menu__icon__wrapper">
-						<Icon icon="carbon:notification" class="text-2xl" />
+						<img :src="icons.bell" alt="logo" />
 					</a>
 				</div>
 				<div class="header__menu__profile hidden md:flex items-center">
 					<div class="header__menu__profile__avatar mr-4">
-						<Icon
-							icon="carbon:user-avatar-filled"
-							class="text-4xl"
+						<img
+							:src="icons.avatar"
+							alt="logo"
+							class="rounded-lg"
 						/>
 					</div>
 					<div class="header__menu__profile__text flex">
@@ -86,6 +86,9 @@
 
 <script>
 import logobrand from "../assets/icons/logobrand.svg?url"
+import bell from "../assets/icons/bell.svg?url"
+import google from "../assets/icons/google.svg?url"
+import avatar from "../assets/icons/avatar.svg?url"
 import { Icon } from "@iconify/vue"
 
 export default {
@@ -95,10 +98,16 @@ export default {
 	emits: ["isOpen"],
 	data() {
 		return {
-			logobrand,
+			icons: {
+				logobrand,
+				bell,
+				google,
+				avatar,
+			},
 			open: false,
 		}
 	},
+
 	methods: {
 		toggleMenu() {
 			this.open = !this.open
