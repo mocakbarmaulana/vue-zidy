@@ -95,6 +95,12 @@ export default {
 	components: {
 		Icon,
 	},
+	props: {
+		open: {
+			type: Boolean,
+			default: false,
+		},
+	},
 	emits: ["isOpen"],
 	data() {
 		return {
@@ -104,14 +110,11 @@ export default {
 				google,
 				avatar,
 			},
-			open: false,
 		}
 	},
-
 	methods: {
 		toggleMenu() {
-			this.open = !this.open
-			this.$emit("isOpen", this.open)
+			this.$emit("isOpen", !this.open)
 		},
 	},
 }
