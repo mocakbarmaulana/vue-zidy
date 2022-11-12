@@ -1,14 +1,19 @@
 <template>
 	<header
-		class="fixed top-0 md:w-[calc(100vw-90px)] w-full lg:bg-white lg:bg-none h-[90px] transition-all duration-500 ease-in-out border-b bg-[#DCF3F0] z-50"
+		class="top-0 md:w-[calc(100vw-90px)] w-full lg:bg-white lg:bg-none h-[90px] transition-all duration-500 ease-in-out border-b bg-[#DCF3F0]"
 	>
 		<div
 			class="header flex md:flex flex-row justify-between w-full items-center h-full px-8"
 		>
-			<nav class="burger__menu md:hidden">
+			<nav
+				class="burger__menu md:hidden"
+				:class="{
+					hidden: isSideBarOpen,
+				}"
+			>
 				<button
 					class="text-white w-10 h-10 relative focus:outline-none"
-					@click="toggleMenu"
+					@click="toggleSideBar"
 				>
 					<div
 						class="block w-5 absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"
@@ -16,19 +21,19 @@
 						<span
 							class="block absolute h-0.5 w-5 bg-[#4EC1B6] transform transition duration-500 ease-in-out"
 							:class="{
-								'rotate-45': open,
-								' -translate-y-1.5': !open,
+								'rotate-45': isSideBarOpen,
+								' -translate-y-1.5': !isSideBarOpen,
 							}"
 						></span>
 						<span
 							class="block absolute h-0.5 w-5 bg-[#4EC1B6] transform transition duration-500 ease-in-out"
-							:class="{ 'opacity-0': open }"
+							:class="{ 'opacity-0': isSideBarOpen }"
 						></span>
 						<span
 							class="block absolute h-0.5 w-5 bg-[#4EC1B6] transform transition duration-500 ease-in-out"
 							:class="{
-								'-rotate-45': open,
-								' translate-y-1.5': !open,
+								'-rotate-45': isSideBarOpen,
+								' translate-y-1.5': !isSideBarOpen,
 							}"
 						></span>
 					</div>
@@ -90,6 +95,7 @@ import bell from "../assets/icons/bell.svg?url"
 import google from "../assets/icons/google.svg?url"
 import avatar from "../assets/icons/avatar.svg?url"
 import { Icon } from "@iconify/vue"
+import { mapState, mapActions } from "vuex"
 
 export default {
 	components: {
@@ -112,7 +118,16 @@ export default {
 			},
 		}
 	},
+	computed: {
+		...mapState(["isSideBarOpen"]),
+	},
+	watch: {
+		isSideBarOpen() {
+			console.log("isSideBarOpen", this.isSideBarOpen)
+		},
+	},
 	methods: {
+		...mapActions(["toggleSideBar"]),
 		toggleMenu() {
 			this.$emit("isOpen", !this.open)
 		},

@@ -1,9 +1,9 @@
 <template>
 	<aside
-		class="fixed w-full md:w-[90px] h-[calc(100vh-90px)] md:left-0 md:bg-[#4EC1B60F] bg-[#DCF3F0] md:h-screen top-[90px] md:top-0 transition-all duration-500 ease-in-out z-50"
+		class="fixed w-full md:w-[90px] h-screen md:left-0 md:bg-[#4EC1B60F] bg-[#DCF3F0] md:h-screen top-0 transition-all duration-500 ease-in-out z-50"
 		:class="{
-			'left-0': open,
-			'-left-full': !open,
+			'left-0': isSideBarOpen,
+			'-left-full': !isSideBarOpen,
 		}"
 	>
 		<nav
@@ -14,6 +14,26 @@
 					class="sidebar__menu__brand hidden h-[89px] md:flex justify-center items-center"
 				>
 					<img :src="icons.logobrand" alt="" />
+				</div>
+				<div
+					class="sidebar__menu__wrapper flex justify-start md:justify-center px-5 md:px-0 my-5 md:my-0 md:hidden"
+				>
+					<div
+						class="sidebar__menu__wrapper__item w-full md:w-fit flex items-center justify-between p-3 rounded-[8px] cursor-pointer transition hover:text-white mb-2"
+						@click="toggleSideBar"
+					>
+						<figure class="flex items-center">
+							<img
+								:src="icons.logobrandText"
+								alt="logo"
+								class="mr-2"
+							/>
+						</figure>
+						<Icon
+							icon="ci:close-small"
+							class="text-3xl bg-white text-[#4EC1B6] rounded-full shadow-lg hover:bg-[#4EC1B6] hover:text-white"
+						/>
+					</div>
 				</div>
 				<div
 					class="sidebar__menu__wrapper flex justify-start md:justify-center px-5 md:px-0"
@@ -98,7 +118,7 @@
 					</a>
 				</div>
 			</div>
-			<div class="sidebar__profile md:hidden flex px-5 mt-auto">
+			<div class="sidebar__profile md:hidden px-5 mt-auto flex">
 				<div class="header__menu__profile__avatar mr-4">
 					<img :src="icons.avatar" alt="logo" class="rounded-lg" />
 				</div>
@@ -109,9 +129,9 @@
 							>Danis Markonez</span
 						>
 					</div>
-					<div class="icon-wrapper flex items-center ml-2">
-						<Icon icon="fe:drop-down" class="text-2xl" />
-					</div>
+				</div>
+				<div class="icon-wrapper flex items-center ml-auto">
+					<Icon icon="fe:drop-down" class="text-2xl" />
 				</div>
 			</div>
 		</nav>
@@ -122,17 +142,13 @@
 import { Icon } from "@iconify/vue"
 import { useRoute } from "vue-router"
 import logobrand from "../assets/icons/logobrand.svg?url"
+import logobrandText from "../assets/icons/logobrand-text.svg?url"
 import avatar from "../assets/icons/avatar.svg?url"
+import { mapState, mapActions } from "vuex"
 
 export default {
 	components: {
 		Icon,
-	},
-	props: {
-		open: {
-			type: Boolean,
-			default: false,
-		},
 	},
 	emits: ["clicked-nav"],
 	data() {
@@ -140,9 +156,13 @@ export default {
 			icons: {
 				logobrand,
 				avatar,
+				logobrandText,
 			},
 			pathname: "",
 		}
+	},
+	computed: {
+		...mapState(["isSideBarOpen"]),
 	},
 	watch: {
 		$route() {
@@ -153,8 +173,9 @@ export default {
 		this.pathname = useRoute().path
 	},
 	methods: {
+		...mapActions(["toggleSideBar"]),
 		clickNav() {
-			this.$emit("clicked-nav")
+			this.toggleSideBar()
 		},
 	},
 }
