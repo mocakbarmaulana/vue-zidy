@@ -111,7 +111,7 @@
 
 	<section id="chart" class="md:p2 px-0">
 		<div
-			class="px-6 chart__header w-full flex justify-between items-center"
+			class="px-6 chart__header w-full flex justify-between items-center mb-6"
 		>
 			<h3 class="chart__header__text text-[24px] font-medium">
 				Statistic
@@ -132,14 +132,14 @@
 			</div>
 		</div>
 		<div
-			class="chart__content flex w-full min-h-[500px]"
+			class="chart__content flex w-full min-h-[500px] px-6"
 			:class="{
 				'flex-col': directionChart === 'vertical',
 				'flex-row': directionChart === 'horizontal',
 			}"
 		>
 			<div
-				class="w-full p-10"
+				class="w-full p-4 border rounded-xl mr-2 "
 				:class="{
 					'w-1/2': directionChart === 'horizontal',
 					'w-full': directionChart === 'vertical',
@@ -148,7 +148,7 @@
 				<chart-component />
 			</div>
 			<div
-				class="w-full p-10"
+				class="w-full p-4 border rounded-xl ml-2"
 				:class="{
 					'w-1/2': directionChart === 'horizontal',
 					'w-full': directionChart === 'vertical',

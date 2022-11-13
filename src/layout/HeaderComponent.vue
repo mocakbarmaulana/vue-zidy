@@ -1,6 +1,6 @@
 <template>
 	<header
-		class="top-0 md:w-[calc(100vw-90px)] dark:bg-slate-600 dark:text-white w-full lg:bg-white lg:bg-none h-[90px] transition-all duration-500 ease-in-out bg-[#DCF3F0]"
+		class="fixed top-0 md:w-[calc(100vw-90px)] dark:bg-slate-600 dark:text-white w-full lg:bg-white lg:bg-none h-[90px] transition-all duration-500 ease-in-out bg-[#DCF3F0]"
 	>
 		<div
 			class="header flex md:flex flex-row justify-between w-full items-center h-full px-8"
@@ -12,7 +12,7 @@
 				}"
 			>
 				<button
-					class="text-white w-10 h-10 relative focus:outline-none"
+					class="text-white w-10 h-10 relative focus:outline-none z-50"
 					@click="toggleSideBar"
 				>
 					<div
