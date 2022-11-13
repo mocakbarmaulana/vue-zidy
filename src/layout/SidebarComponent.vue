@@ -1,6 +1,6 @@
 <template>
 	<aside
-		class="fixed w-full md:w-[90px] h-screen md:left-0 md:bg-[#4EC1B60F] bg-[#DCF3F0] md:h-screen top-0 transition-all duration-500 ease-in-out z-50"
+		class="fixed w-full md:w-[90px] dark:bg-slate-800 dark:text-white h-screen md:left-0 md:bg-[#4EC1B60F] bg-[#DCF3F0] md:h-screen top-0 transition-all duration-500 ease-in-out z-50"
 		:class="{
 			'left-0': isSideBarOpen,
 			'-left-full': !isSideBarOpen,
