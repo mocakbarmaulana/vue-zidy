@@ -1,7 +1,9 @@
 <template>
 	<sidebar-component />
 
-	<main class="main md:ml-[90px]">
+	<main
+		class="main md:ml-[90px] dark:bg-slate-600 transition-all duration-500 ease-in-out"
+	>
 		<header-component />
 
 		<div class="main__content mt-[90px]">

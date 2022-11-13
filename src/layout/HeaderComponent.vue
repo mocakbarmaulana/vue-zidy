@@ -1,6 +1,6 @@
 <template>
 	<header
-		class="top-0 md:w-[calc(100vw-90px)] w-full lg:bg-white lg:bg-none h-[90px] transition-all duration-500 ease-in-out border-b bg-[#DCF3F0]"
+		class="top-0 md:w-[calc(100vw-90px)] dark:bg-slate-600 dark:text-white w-full lg:bg-white lg:bg-none h-[90px] transition-all duration-500 ease-in-out bg-[#DCF3F0]"
 	>
 		<div
 			class="header flex md:flex flex-row justify-between w-full items-center h-full px-8"
@@ -59,7 +59,7 @@
 				</div>
 				<div class="header__menu__icon md:mr-4">
 					<a href="#" class="header__menu__icon__wrapper">
-						<img :src="icons.bell" alt="logo" />
+						<img :src="icons.bell" alt="logo" class="" />
 					</a>
 				</div>
 				<div
@@ -74,7 +74,7 @@
 					>
 						<Icon
 							icon="eva:sun-fill"
-							class="w-4 h-4 relative ml-1 left-0 z-10 transition-all duration-500 ease-in-out"
+							class="w-4 h-4 relative ml-1 left-0 z-10 dark:text-slate-800 transition-all duration-500 ease-in-out"
 							:class="{
 								'text-white': !darkMode,
 							}"

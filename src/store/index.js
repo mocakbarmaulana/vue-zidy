@@ -9,16 +9,23 @@ export default createStore({
 		toggleSideBar(state) {
 			state.isSideBarOpen = !state.isSideBarOpen
 		},
-		toggleDarkMode(state) {
-			state.darkMode = !state.darkMode
+		SET_DARK_MODE(state, darkmode) {
+			state.darkMode = darkmode
 		},
 	},
 	actions: {
 		toggleSideBar({ commit }) {
 			commit("toggleSideBar")
 		},
-		toggleDarkMode({ commit }) {
-			commit("toggleDarkMode")
+		toggleDarkMode({ commit, state }) {
+			commit("SET_DARK_MODE", !state.darkMode)
+			if (state.darkMode) {
+				document.documentElement.classList.add("dark")
+				localStorage.setItem("darkMode", "true")
+			} else {
+				document.documentElement.classList.remove("dark")
+				localStorage.setItem("darkMode", "false")
+			}
 		},
 	},
 	modules: {},

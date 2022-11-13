@@ -1,5 +1,7 @@
 <template>
-	<div class="h-[60px] flex items-center justify-center border rounded">
+	<div
+		class="h-[60px] flex items-center justify-center border rounded dark:text-white"
+	>
 		<button
 			class="h-full w-16 flex items-center justify-center text-2xl hover:bg-slate-200"
 			@click="changeDirection('horizontal')"
