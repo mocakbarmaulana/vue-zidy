@@ -1,3 +1,81 @@
+<script>
+import { Icon } from "@iconify/vue"
+import { mapActions, mapGetters, mapState } from "vuex"
+import moment from "moment"
+import chatAvatar from "../assets/icons/chatAvatar.png?url"
+import avatarSmall from "../assets/icons/avatarSmall.png?url"
+import avatarBig from "../assets/icons/avatarBig.png?url"
+import edit from "../assets/icons/edit.svg?url"
+
+export default {
+	name: "ChatView",
+	components: {
+		Icon,
+	},
+	data() {
+		return {
+			icons: {
+				chatAvatar,
+				avatarSmall,
+				avatarBig,
+				edit,
+			},
+			isOpenChat: false,
+		}
+	},
+	computed: {
+		...mapState(["auth"]),
+		...mapGetters([
+			"chats/myMessages",
+			"chats/openMessage",
+			"chats/message",
+			"users/userById",
+			"chats/messageUserDetail",
+		]),
+	},
+	watch: {
+		"chats/message"(val) {
+			if (val) {
+				this.isOpenChat = true
+			}
+			this["chats/updateMessageUserDetail"](
+				this["users/userById"](this.filterUser(val.users).id),
+			)
+		},
+	},
+	mounted() {
+		console.log("mounted", this["chats/message"])
+	},
+	methods: {
+		...mapActions([
+			"chats/updateOpenMessage",
+			"chats/updateMessageUserDetail",
+		]),
+		convertDateToTime(data) {
+			return moment(data).format("HH:mm A")
+		},
+		filterUser(users) {
+			return users.find((user) => user.id !== this.auth.auth.user_id)
+		},
+		myMessages() {
+			return this["chats/myMessages"]
+		},
+		getMessage() {
+			return this["chats/message"]
+		},
+		getDetailUser() {
+			return this["chats/messageUserDetail"]
+		},
+		openChat(chat) {
+			this["chats/updateOpenMessage"](chat)
+		},
+		openMessage() {
+			return this["chats/openMessage"]
+		},
+	},
+}
+</script>
+
 <template>
 	<section
 		id="chat"
@@ -110,6 +188,7 @@
 						v-for="message in myMessages()"
 						:key="message.id"
 						class="chat flex items-center mb-4 hover:bg-[#F8F8FA] cursor-pointer py-1 px-6"
+						@click="openChat(message)"
 					>
 						<div class="chat__avatar relative block">
 							<img :src="icons.avatarSmall" alt="" class="" />
@@ -167,6 +246,7 @@
 		</article>
 		<article class="chat__main hidden md:flex w-full">
 			<article
+				v-show="isOpenChat"
 				id="chat-canvas"
 				class="chat__open__parent w-full h-full bg-[#F8F8FA] flex flex-col justify-between"
 			>
@@ -183,9 +263,9 @@
 						<div
 							class="chat__open__user__wrapper pl-3 flex flex-col justify-center items-start"
 						>
-							<span class="font-medium text-lg"
-								>Roymarthen Ispar</span
-							>
+							<span class="font-medium text-lg">{{
+								getDetailUser().name
+							}}</span>
 							<span
 								class="font-normal text-base text-[#00B876] text-left"
 								>Online</span
@@ -211,6 +291,35 @@
 								class="text-2xl text-[#000000E5] hover:text-[#4EC1B6]"
 							/>
 						</a>
+					</div>
+				</div>
+				<div class="chat__open__body flex flex-col h-full p-6">
+					<div
+						v-for="openChatMessage in openMessage()"
+						:key="openChatMessage.id"
+						class="flex flex-col mb-2"
+						:class="{
+							'ml-auto':
+								openChatMessage.user_id === auth.auth.user_id,
+							'mr-auto':
+								openChatMessage.user_id !== auth.auth.user_id,
+						}"
+					>
+						<span
+							class="w-fit px-4 py-2 rounded-lg"
+							:class="{
+								'bg-[#4EC1B6] text-white ml-auto':
+									openChatMessage.user_id ===
+									auth.auth.user_id,
+								'bg-white text-black mr-auto':
+									openChatMessage.user_id !==
+									auth.auth.user_id,
+							}"
+							>{{ openChatMessage.message }}
+						</span>
+						<span class="text-right text-xs">{{
+							convertDateToTime(openChatMessage.created_at)
+						}}</span>
 					</div>
 				</div>
 				<form class="mx-4 mb-4">
@@ -258,7 +367,7 @@
 			</article>
 			<article
 				id="chat-users-detail"
-				class="chat__open__detail w-[25%] h-full bg-white border-l hidden lg:block"
+				class="chat__open__detail w-[25%] h-full bg-white border-l hidden"
 			>
 				<div
 					class="chat__detail__header flex flex-col justify-center items-center pb-6 pt-8"
@@ -415,42 +524,3 @@
 		</article>
 	</section>
 </template>
-
-<script>
-import { Icon } from "@iconify/vue"
-import { mapGetters, mapState } from "vuex"
-import chatAvatar from "../assets/icons/chatAvatar.png?url"
-import avatarSmall from "../assets/icons/avatarSmall.png?url"
-import avatarBig from "../assets/icons/avatarBig.png?url"
-import edit from "../assets/icons/edit.svg?url"
-
-export default {
-	name: "ChatView",
-	components: {
-		Icon,
-	},
-	data() {
-		return {
-			icons: {
-				chatAvatar,
-				avatarSmall,
-				avatarBig,
-				edit,
-			},
-		}
-	},
-	computed: {
-		...mapState(["auth"]),
-		...mapGetters(["messages/myMessages"]),
-	},
-	mounted() {},
-	methods: {
-		myMessages() {
-			return this["messages/myMessages"]
-		},
-		filterUser(users) {
-			return users.find((user) => user.id !== this.auth.auth.user_id)
-		},
-	},
-}
-</script>

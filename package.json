@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "chart.js": "^3.9.1",
+    "moment": "^2.29.4",
     "vue": "^3.2.41",
     "vue-router": "^4.1.6",
     "vuex": "^4.1.0"

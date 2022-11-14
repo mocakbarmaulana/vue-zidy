@@ -117,7 +117,7 @@
 	</header>
 </template>
 
-<script>
+<script lang="js">
 import logobrand from "../assets/icons/logobrand.svg?url"
 import bell from "../assets/icons/bell.svg?url"
 import google from "../assets/icons/google.svg?url"
