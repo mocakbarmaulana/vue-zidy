@@ -1,8 +1,11 @@
 <template>
-	<section id="chat" class="flex w-full relative min-h-[calc(100vh-90px)]">
+	<section
+		id="chat"
+		class="flex w-full flex-col md:flex-row min-h-[calc(100vh-90px)]"
+	>
 		<article
 			id="chat-list"
-			class="chat__parent max-w-[40%] h-full border-r pt-6"
+			class="chat__parent w-full md:w-[70%] lg:w-[50%] xl:w-[30%] h-full border-r pt-6 transition-all duration-300 ease-in-out"
 		>
 			<div class="chat__header px-6">
 				<form class="">
@@ -56,18 +59,7 @@
 							>View All</a
 						>
 					</div>
-					<div class="chat__online__main flex">
-						<div
-							class="chat__online__main__wrapper flex flex-col justify-center mr-4"
-						>
-							<div class="chat__avatar relative block">
-								<img :src="icons.chatAvatar" alt="" class="" />
-								<div
-									class="chat__online__status w-[12px] h-[12px] bg-[#39CE25] rounded-full outline outline-2 outline-white absolute top-2 right-0"
-								></div>
-							</div>
-							<span class="text-base mt-2">Georgere</span>
-						</div>
+					<div class="chat__online__main flex flex-wrap">
 						<div
 							class="chat__online__main__wrapper flex flex-col justify-center mr-4"
 						>
@@ -173,7 +165,7 @@
 				</div>
 			</div>
 		</article>
-		<article class="chat__main w-full flex">
+		<article class="chat__main hidden md:flex w-full">
 			<article
 				id="chat-canvas"
 				class="chat__open__parent w-full h-full bg-[#F8F8FA] flex flex-col justify-between"
@@ -266,7 +258,7 @@
 			</article>
 			<article
 				id="chat-users-detail"
-				class="chat__open__detail w-[25%] h-full bg-white border-l"
+				class="chat__open__detail w-[25%] h-full bg-white border-l hidden lg:block"
 			>
 				<div
 					class="chat__detail__header flex flex-col justify-center items-center pb-6 pt-8"
