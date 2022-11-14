@@ -1,4 +1,5 @@
 import allMessages from "../../data/messages.json"
+import auth from "../../data/auth.json"
 
 export default {
 	namespaced: true,
@@ -9,6 +10,10 @@ export default {
 	getters: {
 		messages: (state) => state.messages,
 		message: (state) => state.message,
+		myMessages: (state) =>
+			state.messages.filter((message) =>
+				message.users.find((user) => user.id === auth.user_id),
+			),
 	},
 	mutations: {
 		ADD_MESSAGE(state, message) {

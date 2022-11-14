@@ -1,5 +1,5 @@
 <template>
-	<section class="md:p-2 px-0">
+	<section class="md:p-2 px-0 min-h-[calc(100vh-90px)]">
 		<div class="heading-cards visible md:hidden px-8 pt-6">
 			<h3 class="font-medium text-[28px]">Analytics</h3>
 		</div>
@@ -107,56 +107,56 @@
 				</div>
 			</div>
 		</div>
-	</section>
 
-	<section id="chart" class="md:p2 px-0">
-		<div
-			class="px-6 chart__header w-full flex justify-between items-center mb-6"
-		>
-			<h3 class="chart__header__text text-[24px] font-medium">
-				Statistic
-			</h3>
-			<div class="flex items-center">
-				<div class="w-[200px] mx-2 md:hidden">
-					<select-fly :options="options" placeholder="Filter" />
-				</div>
-				<div class="w-[200px] mx-2 hidden md:block">
-					<select-fly :options="options" placeholder="Contact" />
-				</div>
-				<div class="w-[200px] mx-2 hidden md:block">
-					<select-fly :options="options" placeholder="Monthly" />
-				</div>
-				<div class="mx-2 hidden md:block w-32">
-					<chart-direction @change-direction="changeDirection" />
-				</div>
-			</div>
-		</div>
-		<div
-			class="chart__content flex w-full min-h-[500px] px-6"
-			:class="{
-				'flex-col': directionChart === 'vertical',
-				'flex-row': directionChart === 'horizontal',
-			}"
-		>
+		<article id="chart" class="md:p2 px-0">
 			<div
-				class="w-full p-4 border rounded-xl mr-2 "
-				:class="{
-					'w-1/2': directionChart === 'horizontal',
-					'w-full': directionChart === 'vertical',
-				}"
+				class="px-6 chart__header w-full flex justify-between items-center mb-6"
 			>
-				<chart-component />
+				<h3 class="chart__header__text text-[24px] font-medium">
+					Statistic
+				</h3>
+				<div class="flex items-center">
+					<div class="w-[200px] mx-2 md:hidden">
+						<select-fly :options="options" placeholder="Filter" />
+					</div>
+					<div class="w-[200px] mx-2 hidden md:block">
+						<select-fly :options="options" placeholder="Contact" />
+					</div>
+					<div class="w-[200px] mx-2 hidden md:block">
+						<select-fly :options="options" placeholder="Monthly" />
+					</div>
+					<div class="mx-2 hidden md:block w-32">
+						<chart-direction @change-direction="changeDirection" />
+					</div>
+				</div>
 			</div>
 			<div
-				class="w-full p-4 border rounded-xl ml-2"
+				class="chart__content flex w-full min-h-[500px] px-6"
 				:class="{
-					'w-1/2': directionChart === 'horizontal',
-					'w-full': directionChart === 'vertical',
+					'flex-col': directionChart === 'vertical',
+					'flex-row': directionChart === 'horizontal',
 				}"
 			>
-				<chart-component chart-wrapper="wrapper-two" />
+				<div
+					class="w-full p-4 border rounded-xl mr-2"
+					:class="{
+						'w-1/2': directionChart === 'horizontal',
+						'w-full': directionChart === 'vertical',
+					}"
+				>
+					<chart-component />
+				</div>
+				<div
+					class="w-full p-4 border rounded-xl ml-2"
+					:class="{
+						'w-1/2': directionChart === 'horizontal',
+						'w-full': directionChart === 'vertical',
+					}"
+				>
+					<chart-component chart-wrapper="wrapper-two" />
+				</div>
 			</div>
-		</div>
+		</article>
 	</section>
 </template>
 

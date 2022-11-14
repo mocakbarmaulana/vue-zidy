@@ -1,7 +1,6 @@
 import auth from "../../data/auth.json"
 
 export default {
-	namespaced: true,
 	state: {
 		auth: auth,
 	},
