@@ -1,8 +1,8 @@
 <template>
-	<section id="chat" class="flex w-full">
+	<section id="chat" class="flex w-full relative min-h-[calc(100vh-90px)]">
 		<article
 			id="chat-list"
-			class="chat__parent max-w-[40%] h-screen border-r pt-6"
+			class="chat__parent max-w-[40%] h-full border-r pt-6"
 		>
 			<div class="chat__header px-6">
 				<form class="">
@@ -176,7 +176,7 @@
 		<article class="chat__main w-full flex">
 			<article
 				id="chat-canvas"
-				class="chat__open__parent w-full h-screen bg-[#F8F8FA] flex flex-col justify-between"
+				class="chat__open__parent w-full h-full bg-[#F8F8FA] flex flex-col justify-between"
 			>
 				<div
 					class="chat__open__header p-6 bg-white flex flex-row justify-between items-center border-b"
@@ -266,7 +266,7 @@
 			</article>
 			<article
 				id="chat-users-detail"
-				class="chat__open__detail w-[25%] h-screen bg-white border-l"
+				class="chat__open__detail w-[25%] h-full bg-white border-l"
 			>
 				<div
 					class="chat__detail__header flex flex-col justify-center items-center pb-6 pt-8"
