@@ -15,13 +15,33 @@ export default {
 	},
 	getters: {
 		messages: (state) => state.messages,
+		searchMessages: (state) => (search) => {
+			const messages = state.messages.filter((message) => {
+				return message.users.find((user) => user.id === auth.user_id)
+			})
+
+			if (search) {
+				return messages.filter((message) => {
+					return (
+						message.users.find((user) =>
+							user.name
+								.toLowerCase()
+								.includes(search.toLowerCase()),
+						) ||
+						message.messages.find((message) =>
+							message.message
+								.toLowerCase()
+								.includes(search.toLowerCase()),
+						)
+					)
+				})
+			} else {
+				return messages
+			}
+		},
 		message: (state) => state.message,
 		openMessage: (state) => state.message.messages,
 		messageUserDetail: (state) => state.messageUserDetail,
-		myMessages: (state) =>
-			state.messages.filter((message) =>
-				message.users.find((user) => user.id === auth.user_id),
-			),
 	},
 	mutations: {
 		SET_MESSAGE(state, message) {

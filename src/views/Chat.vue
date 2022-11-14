@@ -20,8 +20,10 @@ export default {
 				avatarBig,
 				edit,
 			},
+			myMessages: [],
 			isOpenChat: false,
 			newOpenChat: "",
+			searchChat: "",
 		}
 	},
 	computed: {
@@ -31,6 +33,7 @@ export default {
 			"chats/openMessage",
 			"chats/message",
 			"chats/messageUserDetail",
+			"chats/searchMessages",
 			"users/userById",
 		]),
 	},
@@ -43,9 +46,12 @@ export default {
 				this["users/userById"](this.filterUser(val.users).id),
 			)
 		},
+		searchChat(val) {
+			this.myMessages = this.searchMessages(val)
+		},
 	},
 	mounted() {
-		console.log("mounted", this["chats/message"])
+		this.myMessages = this.searchMessages()
 	},
 	methods: {
 		...mapActions([
@@ -54,7 +60,7 @@ export default {
 			"chats/addOpenMessage",
 		]),
 		convertDateToTime(data) {
-			return moment(data).format("HH:mm A")
+			return moment(data).format("hh:mm A")
 		},
 		filterUser(users) {
 			return users.find((user) => user.id !== this.auth.auth.user_id)
@@ -63,8 +69,8 @@ export default {
 			this["chats/addOpenMessage"](this.newOpenChat)
 			this.newOpenChat = ""
 		},
-		myMessages() {
-			return this["chats/myMessages"]
+		searchMessages(search) {
+			return this["chats/searchMessages"](search)
 		},
 		getMessage() {
 			return this["chats/message"]
@@ -97,6 +103,7 @@ export default {
 						<Icon icon="bi:search" class="w-4 h-4 mx-4" />
 						<input
 							id="search-chat"
+							v-model="searchChat"
 							type="text"
 							class="block py-4 px-2 w-full text-base text-[#676F7E] rounded-lg bg-[#F8F8FA] focus:outline-none"
 							placeholder="Search people or messages..."
@@ -191,7 +198,7 @@ export default {
 				</div>
 				<div class="chat__list flex flex-col">
 					<div
-						v-for="message in myMessages()"
+						v-for="message in myMessages"
 						:key="message.id"
 						class="chat flex items-center hover:bg-[#F8F8FA] cursor-pointer px-6 py-4"
 						:class="{
