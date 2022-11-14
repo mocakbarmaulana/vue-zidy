@@ -74,7 +74,7 @@
 					>
 						<Icon
 							icon="eva:sun-fill"
-							class="w-4 h-4 relative ml-1 left-0 z-10 dark:text-slate-800 transition-all duration-500 ease-in-out"
+							class="w-4 h-4 relative ml-1 left-0 z-10 dark:text-slate-800 transition-all duration-500 ease-in-out cursor-pointer"
 							:class="{
 								'text-white': !darkMode,
 							}"
@@ -82,7 +82,7 @@
 						/>
 						<Icon
 							icon="clarity:moon-solid"
-							class="w-4 h-4 relative mr-1 right-0 z-10 transition-all duration-500 ease-in-out"
+							class="w-4 h-4 relative mr-1 right-0 z-10 transition-all duration-500 ease-in-out cursor-pointer"
 							:class="{
 								'text-white': darkMode,
 							}"
