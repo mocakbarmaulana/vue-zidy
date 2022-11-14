@@ -21,6 +21,7 @@ export default {
 				edit,
 			},
 			isOpenChat: false,
+			newOpenChat: "",
 		}
 	},
 	computed: {
@@ -29,8 +30,8 @@ export default {
 			"chats/myMessages",
 			"chats/openMessage",
 			"chats/message",
-			"users/userById",
 			"chats/messageUserDetail",
+			"users/userById",
 		]),
 	},
 	watch: {
@@ -50,12 +51,17 @@ export default {
 		...mapActions([
 			"chats/updateOpenMessage",
 			"chats/updateMessageUserDetail",
+			"chats/addOpenMessage",
 		]),
 		convertDateToTime(data) {
 			return moment(data).format("HH:mm A")
 		},
 		filterUser(users) {
 			return users.find((user) => user.id !== this.auth.auth.user_id)
+		},
+		sendOpenChat() {
+			this["chats/addOpenMessage"](this.newOpenChat)
+			this.newOpenChat = ""
 		},
 		myMessages() {
 			return this["chats/myMessages"]
@@ -187,7 +193,10 @@ export default {
 					<div
 						v-for="message in myMessages()"
 						:key="message.id"
-						class="chat flex items-center mb-4 hover:bg-[#F8F8FA] cursor-pointer py-1 px-6"
+						class="chat flex items-center hover:bg-[#F8F8FA] cursor-pointer px-6 py-4"
+						:class="{
+							'bg-[#F8F8FA]': message.id === getMessage().id,
+						}"
 						@click="openChat(message)"
 					>
 						<div class="chat__avatar relative block">
@@ -348,13 +357,15 @@ export default {
 						</button>
 						<textarea
 							id="chat"
+							v-model="newOpenChat"
 							rows="1"
 							class="block mx-4 p-2.5 w-full text-base text-[#000000] placeholder:text-[#676F7E] bg-white rounded-lg focus:ring-blue-500 focus:border-blue-500"
 							placeholder="Write a messages"
 						></textarea>
 						<button
-							type="submit"
+							type="button"
 							class="inline-flex justify-center p-2 text-blue-600 rounded-full cursor-pointer dark:text-blue-500"
+							@click="sendOpenChat"
 						>
 							<Icon
 								icon="fluent:send-16-filled"
