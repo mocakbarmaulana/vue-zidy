@@ -314,7 +314,7 @@ export default {
 				<div class="chat__open__body flex flex-col h-full p-6">
 					<canvas-chat />
 				</div>
-				<form class="mx-4 mb-4">
+				<form class="mx-4 mb-4" @submit.prevent="sendOpenChat">
 					<div
 						class="flex items-center py-2 px-3 bg-white rounded-lg"
 					>
@@ -338,13 +338,14 @@ export default {
 							/>
 							<span class="sr-only">Add emoji</span>
 						</button>
-						<textarea
+						<input
 							id="chat"
 							v-model="newOpenChat"
+							type="text"
 							rows="1"
 							class="block mx-4 p-2.5 w-full text-base text-[#000000] placeholder:text-[#676F7E] bg-white rounded-lg focus:ring-blue-500 focus:border-blue-500"
 							placeholder="Write a messages"
-						></textarea>
+						/>
 						<button
 							type="button"
 							class="inline-flex justify-center p-2 text-blue-600 rounded-full cursor-pointer dark:text-blue-500"
