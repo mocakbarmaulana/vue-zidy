@@ -2,7 +2,7 @@
     {
         "id": 1,
         "name": "John Doe",
-        "compoany": "singapure",
+        "company": "singapure",
         "role": "Design",
         "home": "1111",
         "email": "jhon@example.com",
@@ -14,7 +14,7 @@
     {
         "id": 2,
         "name": "Jane Doe",
-        "compoany": "singapure",
+        "company": "singapure",
         "role": "Design",
         "home": "1111",
         "email": "jane@example.com",
@@ -26,7 +26,7 @@
     {
         "id": 3,
         "name": "John Smith",
-        "compoany": "singapure",
+        "company": "singapure",
         "role": "Design",
         "home": "1111",
         "email": "johnsmith@example",
@@ -38,7 +38,7 @@
     {
         "id": 4,
         "name": "Jane Smith",
-        "compoany": "singapure",
+        "company": "singapure",
         "role": "Design",
         "home": "1111",
         "email": "janesmith@example.com",

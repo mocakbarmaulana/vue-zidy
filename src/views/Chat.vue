@@ -1,16 +1,19 @@
 <script>
 import { Icon } from "@iconify/vue"
 import { mapActions, mapGetters, mapState } from "vuex"
-import moment from "moment"
 import chatAvatar from "../assets/icons/chatAvatar.png?url"
 import avatarSmall from "../assets/icons/avatarSmall.png?url"
 import avatarBig from "../assets/icons/avatarBig.png?url"
 import edit from "../assets/icons/edit.svg?url"
+import CanvasChat from "../components/Chat/CanvasChat.vue"
+import DetailUserChat from "../components/Chat/DetailUserChat.vue"
 
 export default {
 	name: "ChatView",
 	components: {
 		Icon,
+		CanvasChat,
+		DetailUserChat,
 	},
 	data() {
 		return {
@@ -24,6 +27,7 @@ export default {
 			isOpenChat: false,
 			newOpenChat: "",
 			searchChat: "",
+			isDetail: false,
 		}
 	},
 	computed: {
@@ -59,8 +63,8 @@ export default {
 			"chats/updateMessageUserDetail",
 			"chats/addOpenMessage",
 		]),
-		convertDateToTime(data) {
-			return moment(data).format("hh:mm A")
+		handleDetail() {
+			this.isDetail = !this.isDetail
 		},
 		filterUser(users) {
 			return users.find((user) => user.id !== this.auth.auth.user_id)
@@ -80,9 +84,6 @@ export default {
 		},
 		openChat(chat) {
 			this["chats/updateOpenMessage"](chat)
-		},
-		openMessage() {
-			return this["chats/openMessage"]
 		},
 	},
 }
@@ -278,6 +279,7 @@ export default {
 						</div>
 						<div
 							class="chat__open__user__wrapper pl-3 flex flex-col justify-center items-start"
+							@click="handleDetail"
 						>
 							<span class="font-medium text-lg">{{
 								getDetailUser().name
@@ -310,33 +312,7 @@ export default {
 					</div>
 				</div>
 				<div class="chat__open__body flex flex-col h-full p-6">
-					<div
-						v-for="openChatMessage in openMessage()"
-						:key="openChatMessage.id"
-						class="flex flex-col mb-2"
-						:class="{
-							'ml-auto':
-								openChatMessage.user_id === auth.auth.user_id,
-							'mr-auto':
-								openChatMessage.user_id !== auth.auth.user_id,
-						}"
-					>
-						<span
-							class="w-fit px-4 py-2 rounded-lg"
-							:class="{
-								'bg-[#4EC1B6] text-white ml-auto':
-									openChatMessage.user_id ===
-									auth.auth.user_id,
-								'bg-white text-black mr-auto':
-									openChatMessage.user_id !==
-									auth.auth.user_id,
-							}"
-							>{{ openChatMessage.message }}
-						</span>
-						<span class="text-right text-xs">{{
-							convertDateToTime(openChatMessage.created_at)
-						}}</span>
-					</div>
+					<canvas-chat />
 				</div>
 				<form class="mx-4 mb-4">
 					<div
@@ -385,159 +361,13 @@ export default {
 			</article>
 			<article
 				id="chat-users-detail"
-				class="chat__open__detail w-[25%] h-full bg-white border-l hidden"
+				class="chat__open__detail w-[25%] h-full bg-white border-l transition-all duration-300 ease-in-out"
+				:class="{
+					hidden: !isDetail,
+					block: isDetail,
+				}"
 			>
-				<div
-					class="chat__detail__header flex flex-col justify-center items-center pb-6 pt-8"
-				>
-					<img
-						:src="icons.avatarBig"
-						alt=""
-						class="w-[96px] h-[96px]"
-					/>
-					<span class="font-medium text-xl mt-4"
-						>Roymarthen Ispar</span
-					>
-				</div>
-				<div class="chat__detail__main max-w-[80%] mx-auto">
-					<div
-						class="chat__detail__data__wrapper flex flex-row justify-between items-center mb-4"
-					>
-						<div
-							class="chat__data__title flex flex-row justify-center items-center"
-						>
-							<Icon
-								icon="pixelarticons:buildings"
-								class="text-2xl text-[#000000E5] hover:text-[#4EC1B6]"
-							/>
-							<span class="ml-2 font-medium text-sm"
-								>Company</span
-							>
-						</div>
-						<div class="chat__data">
-							<span class="text-sm">Simpson Co.</span>
-						</div>
-					</div>
-					<div
-						class="chat__detail__data__wrapper flex flex-row justify-between items-center mb-4"
-					>
-						<div
-							class="chat__data__title flex flex-row justify-center items-center"
-						>
-							<Icon
-								icon="bx:user"
-								class="text-2xl text-[#000000E5] hover:text-[#4EC1B6]"
-							/>
-							<span class="ml-2 font-medium text-sm">Role</span>
-						</div>
-						<div class="chat__data">
-							<span class="text-sm">Design</span>
-						</div>
-					</div>
-					<div
-						class="chat__detail__data__wrapper flex flex-row justify-between items-center mb-4"
-					>
-						<div
-							class="chat__data__title flex flex-row justify-center items-center"
-						>
-							<Icon
-								icon="akar-icons:home-alt1"
-								class="text-2xl text-[#000000E5] hover:text-[#4EC1B6]"
-							/>
-							<span class="ml-2 font-medium text-sm">Home</span>
-						</div>
-						<div class="chat__data">
-							<span class="text-sm">(435) 4322-443.</span>
-						</div>
-					</div>
-					<div
-						class="chat__detail__data__wrapper flex flex-row justify-between items-center mb-4"
-					>
-						<div
-							class="chat__data__title flex flex-row justify-center items-center"
-						>
-							<Icon
-								icon="eva:email-outline"
-								class="text-2xl text-[#000000E5] hover:text-[#4EC1B6]"
-							/>
-							<span class="ml-2 font-medium text-sm">Email</span>
-						</div>
-						<div class="chat__data">
-							<span class="text-sm">yor@zidy.com</span>
-						</div>
-					</div>
-					<div
-						class="chat__detail__data__wrapper flex flex-row justify-between items-center mb-4"
-					>
-						<div
-							class="chat__data__title flex flex-row justify-center items-center"
-						>
-							<Icon
-								icon="akar-icons:calendar"
-								class="text-2xl text-[#000000E5] hover:text-[#4EC1B6]"
-							/>
-							<span class="ml-2 font-medium text-sm"
-								>Follow-up</span
-							>
-						</div>
-						<div class="chat__data">
-							<span class="text-sm">Aprl 21, 2022</span>
-						</div>
-					</div>
-					<div
-						class="chat__detail__data__wrapper flex flex-row justify-between items-center mb-4"
-					>
-						<div
-							class="chat__data__title flex flex-row justify-center items-center"
-						>
-							<Icon
-								icon="uil:notes"
-								class="text-2xl text-[#000000E5] hover:text-[#4EC1B6]"
-							/>
-							<span class="ml-2 font-medium text-sm">Notes</span>
-						</div>
-						<div class="chat__data">
-							<span class="text-sm">New Project.</span>
-						</div>
-					</div>
-					<div
-						class="chat__detail__data__wrapper flex flex-row justify-between items-center mb-4"
-					>
-						<div
-							class="chat__data__title flex flex-row justify-center items-center"
-						>
-							<Icon
-								icon="bx:message-square-check"
-								class="text-2xl text-[#000000E5] hover:text-[#4EC1B6]"
-							/>
-							<span class="ml-2 font-medium text-sm">User</span>
-						</div>
-						<div class="chat__data">
-							<input
-								type="checkbox"
-								class="checked:bg-[#4EC1B6]"
-							/>
-						</div>
-					</div>
-					<div
-						class="chat__detail__data__wrapper flex flex-row justify-between items-center mb-4"
-					>
-						<a
-							href="#"
-							class="chat__data__title flex flex-row justify-center items-center cursor-pointer"
-						>
-							<Icon
-								icon="akar-icons:plus"
-								class="text-2xl text-[#4EC1B6] hover:text-[#4EC1B6]"
-							/>
-							<span
-								class="ml-2 font-medium text-sm text-[#4EC1B6] underline"
-								>Add a property</span
-							>
-						</a>
-						<div class="chat__data"></div>
-					</div>
-				</div>
+				<detail-user-chat />
 			</article>
 		</article>
 	</section>
