@@ -92,11 +92,11 @@ export default {
 <template>
 	<section
 		id="chat"
-		class="flex w-full flex-col md:flex-row min-h-[calc(100vh-90px)] relative z-20"
+		class="flex w-full flex-col lg:flex-row min-h-[calc(100vh-90px)] relative"
 	>
 		<article
 			id="chat-list"
-			class="chat__parent w-full md:w-[70%] lg:w-[50%] xl:w-[30%] h-[calc(100vh-90px)] border-r transition-all duration-300 ease-in-out"
+			class="chat__parent w-full lg:w-[50%] xl:w-[40%] h-[calc(100vh-90px)] border-r pt-2 transition-all duration-300 ease-in-out"
 		>
 			<div class="chat__header px-6">
 				<form class="">
@@ -265,7 +265,7 @@ export default {
 			v-show="isOpenChat"
 			class="chat__main md:flex w-full h-[calc(100vh-90px)]"
 			:class="{
-				'absolute top-0 md:relative': isOpenChat,
+				'absolute top-0 lg:relative': isOpenChat,
 				relative: !isOpenChat,
 			}"
 		>
