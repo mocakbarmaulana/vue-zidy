@@ -92,11 +92,11 @@ export default {
 <template>
 	<section
 		id="chat"
-		class="flex w-full flex-col md:flex-row min-h-[calc(100vh-90px)]"
+		class="flex w-full flex-col md:flex-row min-h-[calc(100vh-90px)] relative z-20"
 	>
 		<article
 			id="chat-list"
-			class="chat__parent w-full md:w-[70%] lg:w-[50%] xl:w-[30%] h-full border-r pt-6 transition-all duration-300 ease-in-out"
+			class="chat__parent w-full md:w-[70%] lg:w-[50%] xl:w-[30%] h-[calc(100vh-90px)] border-r transition-all duration-300 ease-in-out"
 		>
 			<div class="chat__header px-6">
 				<form class="">
@@ -261,7 +261,14 @@ export default {
 				</div>
 			</div>
 		</article>
-		<article class="chat__main hidden md:flex w-full">
+		<article
+			v-show="isOpenChat"
+			class="chat__main md:flex w-full h-[calc(100vh-90px)]"
+			:class="{
+				'absolute top-0 md:relative': isOpenChat,
+				relative: !isOpenChat,
+			}"
+		>
 			<article
 				v-show="isOpenChat"
 				id="chat-canvas"
@@ -278,7 +285,7 @@ export default {
 							></div>
 						</div>
 						<div
-							class="chat__open__user__wrapper pl-3 flex flex-col justify-center items-start"
+							class="chat__open__user__wrapper pl-3 flex flex-col justify-center items-start cursor-pointer"
 							@click="handleDetail"
 						>
 							<span class="font-medium text-lg">{{
@@ -311,7 +318,7 @@ export default {
 						</a>
 					</div>
 				</div>
-				<div class="chat__open__body flex flex-col h-full p-6">
+				<div class="chat__open__body flex flex-col h-full p-6 w-full">
 					<canvas-chat />
 				</div>
 				<form class="mx-4 mb-4" @submit.prevent="sendOpenChat">
@@ -362,10 +369,11 @@ export default {
 			</article>
 			<article
 				id="chat-users-detail"
-				class="chat__open__detail w-[25%] h-full bg-white border-l transition-all duration-300 ease-in-out"
+				class="chat__open__detail h-full bg-white border-l transition-all duration-300 ease-in-out"
 				:class="{
 					hidden: !isDetail,
-					block: isDetail,
+					'block absolute top-0 w-full md:w-[30%] md:relative z-20':
+						isDetail,
 				}"
 			>
 				<detail-user-chat />

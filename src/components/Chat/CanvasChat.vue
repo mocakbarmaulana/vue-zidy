@@ -30,7 +30,7 @@ export default defineComponent({
 		}"
 	>
 		<span
-			class="w-fit px-4 py-2 rounded-lg"
+			class="w-fit px-4 py-2 rounded-lg block"
 			:class="{
 				'bg-[#4EC1B6] text-white ml-auto':
 					openChatMessage.user_id === auth.auth.user_id,
