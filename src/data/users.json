@@ -9,6 +9,7 @@
         "follow_up": "01 Januari 2020",
         "notes": "project",
         "user": true,
+        "phone": "08991234",
         "messages": []
     },
     {
@@ -21,6 +22,7 @@
         "follow_up": "01 Januari 2020",
         "notes": "project",
         "user": true,
+        "phone": "5456671",
         "messages": []
     },
     {
@@ -33,6 +35,7 @@
         "follow_up": "01 Januari 2020",
         "notes": "project",
         "user": true,
+        "phone": "0776655",
         "messages": []
     },
     {
@@ -45,6 +48,7 @@
         "follow_up": "01 Januari 2020",
         "notes": "project",
         "user": true,
+        "phone": "0776655",
         "messages": []
     }
 ]
