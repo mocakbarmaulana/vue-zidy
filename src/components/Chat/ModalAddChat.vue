@@ -1,5 +1,5 @@
 <script>
-import { mapGetters } from "vuex"
+import { mapGetters, mapActions } from "vuex"
 import avatarMedium from "../../assets/icons/avatar72.png?url"
 
 export default {
@@ -19,6 +19,7 @@ export default {
 			isOpen: false,
 			search: "",
 			users: [],
+			selectedAddUser: null,
 		}
 	},
 	computed: {
@@ -27,6 +28,7 @@ export default {
 	watch: {
 		search(val) {
 			this.users = this.searchUserByPhone(val)
+			this.selectedAddUser = null
 		},
 	},
 	mounted() {
@@ -40,8 +42,17 @@ export default {
 		})
 	},
 	methods: {
+		...mapActions(["chats/addNewMessage"]),
 		searchUserByPhone(phone) {
 			return this["users/searchByPhone"](phone)
+		},
+		selectAddUser(user) {
+			this.selectedAddUser = user
+		},
+		createNewChat() {
+			this["chats/addNewMessage"](this.selectedAddUser)
+			this.selectedAddUser = null
+			this.isOpen = false
 		},
 	},
 }
@@ -52,7 +63,7 @@ export default {
 		id="defaultModal"
 		tabindex="-1"
 		aria-hidden="true"
-		class="flex overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 bottom-0 z-50 p-4 w-full md:inset-0 h-modal bg-[#00000080] backdrop-blur-sm md:h-full"
+		class="flex overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 bottom-0 z-50 p-4 w-full md:inset-0 h-modal bg-[#00000080] backdrop-blur-sm md:h-full transition-all duration-300 ease-in-out"
 		:class="{
 			hidden: !isOpen,
 			flex: isOpen,
@@ -100,11 +111,14 @@ export default {
 					v-if="users.length"
 					class="modal__list py-8 border-t space-y-2"
 				>
-					<a
+					<div
 						v-for="user in users"
 						:key="user.id"
-						href="#"
 						class="px-[40px] flex flex-row justify-start py-4 hover:bg-[#F8F8FA] cursor-pointer"
+						:class="{
+							'bg-[#F8F8FA]': selectedAddUser === user,
+						}"
+						@click="selectAddUser(user)"
 					>
 						<img :src="icons.avatarMedium" alt="" class="" />
 						<div
@@ -118,10 +132,11 @@ export default {
 								{{ user.phone }}
 							</p>
 						</div>
-					</a>
+					</div>
 				</div>
 				<!-- Modal footer -->
 				<div
+					v-if="selectedAddUser !== null"
 					class="flex items-center justify-end px-8 py-[32px] space-x-4 rounded-b border-t border-gray-200 dark:border-gray-600"
 				>
 					<button
@@ -132,9 +147,9 @@ export default {
 						Call
 					</button>
 					<button
-						data-modal-toggle="defaultModal"
 						type="button"
 						class="text-[#000] bg-white hover:bg-[#4EC1B6] hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-[#4EC1B6] text-base font-medium px-8 py-[15px] focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
+						@click="createNewChat"
 					>
 						Messages
 					</button>

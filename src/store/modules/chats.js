@@ -10,7 +10,7 @@ export default {
 		messageUserDetail: {
 			id: "",
 			name: "",
-			compoany: "",
+			company: "",
 		},
 	},
 	getters: {
@@ -59,6 +59,9 @@ export default {
 		ADD_OPEN_MESSAGE(state, message) {
 			state.message.messages.push(message)
 		},
+		ADD_NEW_MESSAGE(state, message) {
+			state.messages.push(message)
+		},
 	},
 	actions: {
 		updateOpenMessage({ commit }, message) {
@@ -82,6 +85,30 @@ export default {
 			commit("ADD_OPEN_MESSAGE", newMessage)
 
 			commit("UPDATE_MESSAGE", state.message)
+		},
+		addNewMessage({ commit, state }, user) {
+			const newMessage = {
+				id: state.messages.at(-1).id + 1,
+				users: [
+					{
+						id: auth.user_id,
+						name: auth.name,
+					},
+					{
+						id: user.id,
+						name: user.name,
+					},
+				],
+				messages: [],
+				created_at: moment().format("YYYY-MM-DD HH:mm:ss"),
+				update_at: moment().format("YYYY-MM-DD HH:mm:ss"),
+				isGroup: false,
+				description: "Group 1 description",
+			}
+
+			commit("ADD_NEW_MESSAGE", newMessage)
+
+			commit("SET_MESSAGE", newMessage)
 		},
 	},
 }

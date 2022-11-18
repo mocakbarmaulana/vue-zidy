@@ -34,7 +34,7 @@ export default {
 		}
 	},
 	computed: {
-		...mapState(["auth"]),
+		...mapState(["auth", "chats/messages"]),
 		...mapGetters([
 			"chats/myMessages",
 			"chats/openMessage",
@@ -48,10 +48,14 @@ export default {
 		"chats/message"(val) {
 			if (val) {
 				this.isOpenChat = true
+				this.myMessages = this.searchMessages()
 			}
 			this["chats/updateMessageUserDetail"](
 				this["users/userById"](this.filterUser(val.users).id),
 			)
+		},
+		"chats/messages"(val) {
+			console.log("messages", val)
 		},
 		searchChat(val) {
 			this.myMessages = this.searchMessages(val)
