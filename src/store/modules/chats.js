@@ -12,6 +12,8 @@ export default {
 			name: "",
 			company: "",
 		},
+		isCall: false,
+		callUserDetail: null
 	},
 	getters: {
 		messages: (state) => state.messages,
@@ -42,6 +44,8 @@ export default {
 		message: (state) => state.message,
 		openMessage: (state) => state.message.messages,
 		messageUserDetail: (state) => state.messageUserDetail,
+		isCall: (state) => state.isCall,
+		callUserDetail: (state) => state.callUserDetail,
 	},
 	mutations: {
 		SET_MESSAGE(state, message) {
@@ -62,6 +66,12 @@ export default {
 		ADD_NEW_MESSAGE(state, message) {
 			state.messages.push(message)
 		},
+		SET_IS_CALL(state, isCall) {
+			state.isCall = isCall
+		},
+		SET_CALL_USER_DETAIL(state, callUserDetail) {
+			state.callUserDetail = callUserDetail
+		}
 	},
 	actions: {
 		updateOpenMessage({ commit }, message) {
@@ -110,5 +120,11 @@ export default {
 
 			commit("SET_MESSAGE", newMessage)
 		},
+		setIsCall({ commit }, isCall) {
+			commit("SET_IS_CALL", isCall)
+		},
+		setCallUserDetail({ commit }, callUserDetail) {
+			commit("SET_CALL_USER_DETAIL", callUserDetail)
+		}
 	},
 }

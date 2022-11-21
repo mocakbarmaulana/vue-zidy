@@ -1,5 +1,5 @@
 <script>
-import { mapGetters, mapActions } from "vuex"
+import {mapGetters, mapActions} from "vuex"
 import avatarMedium from "../../assets/icons/avatar72.png?url"
 
 export default {
@@ -23,7 +23,7 @@ export default {
 		}
 	},
 	computed: {
-		...mapGetters(["users/searchByPhone"]),
+		...mapGetters(["users/searchByPhone", "chats/isCall"]),
 	},
 	watch: {
 		search(val) {
@@ -42,7 +42,7 @@ export default {
 		})
 	},
 	methods: {
-		...mapActions(["chats/addNewMessage"]),
+		...mapActions(["chats/addNewMessage", "chats/setIsCall", "chats/setCallUserDetail"]),
 		searchUserByPhone(phone) {
 			return this["users/searchByPhone"](phone)
 		},
@@ -54,6 +54,15 @@ export default {
 			this.selectedAddUser = null
 			this.isOpen = false
 		},
+    getIsCall() {
+      return this["chats/isCall"]
+    },
+    updateIsCall() {
+      this["chats/setIsCall"](! this.getIsCall())
+      this["chats/setCallUserDetail"](this.selectedAddUser)
+      this.isOpen = false
+      this.selectedAddUser = null
+    }
 	},
 }
 </script>
@@ -143,7 +152,8 @@ export default {
 						data-modal-toggle="defaultModal"
 						type="button"
 						class="text-[#000] bg-white hover:bg-[#4EC1B6] hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-base border border-[#4EC1B6] px-8 py-[15px] text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-					>
+					  @click="updateIsCall"
+          >
 						Call
 					</button>
 					<button
