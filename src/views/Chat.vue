@@ -4,6 +4,7 @@ import { mapActions, mapGetters, mapState } from "vuex"
 import chatAvatar from "../assets/icons/chatAvatar.png?url"
 import avatarSmall from "../assets/icons/avatarSmall.png?url"
 import avatarBig from "../assets/icons/avatarBig.png?url"
+import avatarMedium from "../assets/icons/avatar72.png?url"
 import edit from "../assets/icons/edit.svg?url"
 import CanvasChat from "../components/Chat/CanvasChat.vue"
 import DetailUserChat from "../components/Chat/DetailUserChat.vue"
@@ -23,6 +24,7 @@ export default {
 				chatAvatar,
 				avatarSmall,
 				avatarBig,
+				avatarMedium,
 				edit,
 			},
 			myMessages: [],
@@ -100,6 +102,86 @@ export default {
 </script>
 
 <template>
+
+
+
+<!-- Main modal -->
+<div id="defaultModal" tabindex="-1" aria-hidden="true" class="flex overflow-y-auto overflow-x-hidden fixed  top-0 right-0 left-0 bottom-0 z-50 p-4 w-full md:inset-0 h-modal bg-[#00000080] backdrop-blur-sm md:h-full">
+    <div class="relative w-full max-w-2xl h-full md:h-auto mx-auto my-auto">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-2xl shadow dark:bg-gray-700 ">
+            <!-- Modal header -->
+            <div class="flex justify-between items-start px-[40px] pt-[40px] pb-[32px] rounded-t border-b dark:border-gray-600">
+                <h3 class="font-medium text-[32px]">
+                    New Messages
+                </h3>
+                <button type="button" class="text-gray-400 bg-white drop-shadow-lg hover:bg-gray-200 hover:text-gray-900 rounded-full text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="defaultModal">
+                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <div class="px-[40px] pt-[32px] pb-[32px] space-y-1">
+				<input type="text" class="text-[45px] leading-relaxed text-[rgba(35, 54, 56, 0.15] dark:text-gray-400 placeholder:text-[rgba(35, 54, 56, 0.15] focus:outline-0" placeholder="Name or Phone Number">
+            </div>
+			<div class="modal__list py-8 border-t space-y-2">
+				<a href="#" class="px-[40px] flex flex-row justify-start py-4 hover:bg-[#F8F8FA] cursor-pointer">
+					<img :src="icons.avatarMedium" alt=""  class="" />
+					<div class="flex flex-col justify-center pl-4 my-auto items-start">
+						<span class="font-medium text-xl mb-2 p-0">Joose Lorindor</span>
+						<p class="text-sm font-medium"> <span class="text-[#4EC1B6] p-0">(321)</span> 3392 0995</p>
+					</div>
+				</a>
+				<a href="#" class="px-[40px] flex flex-row justify-start py-4 hover:bg-[#F8F8FA] cursor-pointer">
+					<img :src="icons.avatarMedium" alt=""  class="" />
+					<div class="flex flex-col justify-center pl-4 my-auto items-start">
+						<span class="font-medium text-xl mb-2 p-0">Joose Lorindor</span>
+						<p class="text-sm font-medium"> <span class="text-[#4EC1B6] p-0">(321)</span> 3392 0995</p>
+					</div>
+				</a>
+			</div>
+            <!-- Modal footer -->
+            <div class="flex items-center justify-end px-8 py-[32px] space-x-4 rounded-b border-t border-gray-200 dark:border-gray-600">
+                <button data-modal-toggle="defaultModal" type="button" class="text-[#000] bg-white hover:bg-[#4EC1B6] hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-base border border-[#4EC1B6] px-8 py-[15px] text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Call</button>
+                <button data-modal-toggle="defaultModal" type="button" class="text-[#000] bg-white hover:bg-[#4EC1B6] hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-[#4EC1B6] text-base font-medium px-8 py-[15px] focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Messages</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal move -->
+<div id="defaultModal" tabindex="-1" aria-hidden="true" class="flex overflow-y-auto overflow-x-hidden fixed  top-0 right-0 left-0 bottom-0 z-50 p-4 w-full md:inset-0 h-modal md:h-full">
+    <div class="relative w-[350px] max-w-[350px] h-full md:h-auto mx-auto my-auto">
+        <!-- Modal content -->
+		<div class="flex flex-col bg-[#233638] rounded-[16px] p-6">
+			<div class="flex">
+				<img :src="icons.avatarMedium" alt=""  class="" />
+				<div class="flex flex-col justify-center pl-3">
+					<span class="text-white font-medium text-lg">Joose Lorindor</span>
+					<span class="text-base text-white">0:44</span>
+				</div>
+			</div>
+			<div class="flex flex-row justify-between pt-6">
+				<div class="flex justify-center items-center w-[48px] h-[48px] rounded-full bg-[#34494B] cursor-pointer">
+					<Icon icon="ant-design:setting-outlined" class="text-2xl text-white" />
+				</div>
+				<div class="flex justify-center items-center w-[48px] h-[48px] rounded-full bg-[#34494B] cursor-pointer">
+					<Icon icon="material-symbols:fiber-manual-record" class="text-2xl text-red-500" />
+				</div>
+				<div class="flex justify-center items-center w-[48px] h-[48px] rounded-full bg-[#34494B] cursor-pointer">
+					<Icon icon="mdi:dots-grid" class="text-2xl text-white" />
+				</div>
+				<div class="flex justify-center items-center w-[48px] h-[48px] rounded-full bg-[#34494B] cursor-pointer">
+					<Icon icon="ion:mic-outline" class="text-2xl text-white" />
+				</div>
+				<div class="flex justify-center items-center w-[48px] h-[48px] rounded-full bg-red-500 cursor-pointer">
+					<Icon icon="ph:phone-call" class="text-2xl text-white" />
+				</div>
+			</div>
+		</div>
+    </div>
+</div>
+
 	<section
 		id="chat"
 		class="flex w-full flex-col lg:flex-row min-h-[calc(100vh-90px)] relative"
