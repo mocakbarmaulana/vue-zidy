@@ -1,8 +1,116 @@
+<script>
+import { Icon } from "@iconify/vue"
+import { mapActions, mapGetters, mapState } from "vuex"
+import chatAvatar from "../assets/icons/chatAvatar.png?url"
+import avatarSmall from "../assets/icons/avatarSmall.png?url"
+import avatarBig from "../assets/icons/avatarBig.png?url"
+import edit from "../assets/icons/edit.svg?url"
+import CanvasChat from "../components/Chat/CanvasChat.vue"
+import DetailUserChat from "../components/Chat/DetailUserChat.vue"
+import ModalAddChat from "../components/Chat/ModalAddChat.vue"
+import ModalCallChat from "../components/Chat/ModalCallChat.vue"
+
+export default {
+	name: "ChatView",
+	components: {
+    ModalCallChat,
+		Icon,
+		CanvasChat,
+		DetailUserChat,
+		ModalAddChat,
+	},
+	data() {
+		return {
+			icons: {
+				chatAvatar,
+				avatarSmall,
+				avatarBig,
+				edit,
+			},
+			myMessages: [],
+			isOpenChat: false,
+			newOpenChat: "",
+			searchChat: "",
+			isDetail: false,
+			idModalAdd: "chat-add-modal",
+		}
+	},
+	computed: {
+		...mapState(["auth", "chats/messages", "chats/isCall"]),
+		...mapGetters([
+			"chats/myMessages",
+			"chats/openMessage",
+			"chats/message",
+			"chats/messageUserDetail",
+			"chats/searchMessages",
+			"users/userById",
+		]),
+	},
+	watch: {
+		"chats/message"(val) {
+			if (val) {
+				this.isOpenChat = true
+				this.myMessages = this.searchMessages()
+			}
+			this["chats/updateMessageUserDetail"](
+				this["users/userById"](this.filterUser(val.users).id),
+			)
+		},
+		"chats/messages"(val) {
+			console.log("messages", val)
+		},
+		searchChat(val) {
+			this.myMessages = this.searchMessages(val)
+		},
+	},
+	mounted() {
+		this.myMessages = this.searchMessages()
+	},
+	methods: {
+		...mapActions([
+			"chats/updateOpenMessage",
+			"chats/updateMessageUserDetail",
+			"chats/addOpenMessage",
+      "chats/setIsCall"
+		]),
+		handleDetail() {
+			this.isDetail = !this.isDetail
+		},
+		filterUser(users) {
+			return users.find((user) => user.id !== this.auth.auth.user_id)
+		},
+		sendOpenChat() {
+			this["chats/addOpenMessage"](this.newOpenChat)
+			this.newOpenChat = ""
+		},
+		searchMessages(search) {
+			return this["chats/searchMessages"](search)
+		},
+		getMessage() {
+			return this["chats/message"]
+		},
+		getDetailUser() {
+			return this["chats/messageUserDetail"]
+		},
+		openChat(chat) {
+			this["chats/updateOpenMessage"](chat)
+		},
+    updateIsCall() {
+      this["chats/setIsCall"](!this["chats/isCall"])
+    }
+	},
+}
+</script>
+
 <template>
-	<section id="chat" class="flex w-full relative min-h-[calc(100vh-90px)]">
+	<section
+		id="chat"
+		class="flex w-full flex-col lg:flex-row min-h-[calc(100vh-90px)] relative"
+	>
+    <modal-call-chat />
 		<article
 			id="chat-list"
-			class="chat__parent max-w-[40%] h-full border-r pt-6"
+			class="chat__parent w-full lg:w-[50%] xl:w-[40%] h-[calc(100vh-90px)] border-r pt-2 transition-all duration-300 ease-in-out"
 		>
 			<div class="chat__header px-6">
 				<form class="">
@@ -10,6 +118,7 @@
 						<Icon icon="bi:search" class="w-4 h-4 mx-4" />
 						<input
 							id="search-chat"
+							v-model="searchChat"
 							type="text"
 							class="block py-4 px-2 w-full text-base text-[#676F7E] rounded-lg bg-[#F8F8FA] focus:outline-none"
 							placeholder="Search people or messages..."
@@ -56,18 +165,7 @@
 							>View All</a
 						>
 					</div>
-					<div class="chat__online__main flex">
-						<div
-							class="chat__online__main__wrapper flex flex-col justify-center mr-4"
-						>
-							<div class="chat__avatar relative block">
-								<img :src="icons.chatAvatar" alt="" class="" />
-								<div
-									class="chat__online__status w-[12px] h-[12px] bg-[#39CE25] rounded-full outline outline-2 outline-white absolute top-2 right-0"
-								></div>
-							</div>
-							<span class="text-base mt-2">Georgere</span>
-						</div>
+					<div class="chat__online__main flex flex-wrap">
 						<div
 							class="chat__online__main__wrapper flex flex-col justify-center mr-4"
 						>
@@ -109,15 +207,23 @@
 					class="chat__list__header flex justify-between items-center mb-6 px-6"
 				>
 					<span class="font-medium text-2xl">Chat</span>
-					<a href="#" class="chat__list__edit">
+					<button
+						type="button"
+						class="chat__list__edit"
+						:data-modal="idModalAdd"
+					>
 						<img :src="icons.edit" alt="" class="" />
-					</a>
+					</button>
 				</div>
 				<div class="chat__list flex flex-col">
 					<div
-						v-for="message in myMessages()"
+						v-for="message in myMessages"
 						:key="message.id"
-						class="chat flex items-center mb-4 hover:bg-[#F8F8FA] cursor-pointer py-1 px-6"
+						class="chat flex items-center hover:bg-[#F8F8FA] cursor-pointer px-6 py-4"
+						:class="{
+							'bg-[#F8F8FA]': message.id === getMessage().id,
+						}"
+						@click="openChat(message)"
 					>
 						<div class="chat__avatar relative block">
 							<img :src="icons.avatarSmall" alt="" class="" />
@@ -173,8 +279,16 @@
 				</div>
 			</div>
 		</article>
-		<article class="chat__main w-full flex">
+		<article
+			v-show="isOpenChat"
+			class="chat__main md:flex w-full h-[calc(100vh-90px)]"
+			:class="{
+				'absolute top-0 lg:relative': isOpenChat,
+				relative: !isOpenChat,
+			}"
+		>
 			<article
+				v-show="isOpenChat"
 				id="chat-canvas"
 				class="chat__open__parent w-full h-full bg-[#F8F8FA] flex flex-col justify-between"
 			>
@@ -189,11 +303,12 @@
 							></div>
 						</div>
 						<div
-							class="chat__open__user__wrapper pl-3 flex flex-col justify-center items-start"
+							class="chat__open__user__wrapper pl-3 flex flex-col justify-center items-start cursor-pointer"
+							@click="handleDetail"
 						>
-							<span class="font-medium text-lg"
-								>Roymarthen Ispar</span
-							>
+							<span class="font-medium text-lg">{{
+								getDetailUser().name
+							}}</span>
 							<span
 								class="font-normal text-base text-[#00B876] text-left"
 								>Online</span
@@ -221,7 +336,10 @@
 						</a>
 					</div>
 				</div>
-				<form class="mx-4 mb-4">
+				<div class="chat__open__body flex flex-col h-full p-6 w-full">
+					<canvas-chat />
+				</div>
+				<form class="mx-4 mb-4" @submit.prevent="sendOpenChat">
 					<div
 						class="flex items-center py-2 px-3 bg-white rounded-lg"
 					>
@@ -245,15 +363,18 @@
 							/>
 							<span class="sr-only">Add emoji</span>
 						</button>
-						<textarea
+						<input
 							id="chat"
+							v-model="newOpenChat"
+							type="text"
 							rows="1"
 							class="block mx-4 p-2.5 w-full text-base text-[#000000] placeholder:text-[#676F7E] bg-white rounded-lg focus:ring-blue-500 focus:border-blue-500"
 							placeholder="Write a messages"
-						></textarea>
+						/>
 						<button
-							type="submit"
+							type="button"
 							class="inline-flex justify-center p-2 text-blue-600 rounded-full cursor-pointer dark:text-blue-500"
+							@click="sendOpenChat"
 						>
 							<Icon
 								icon="fluent:send-16-filled"
@@ -266,199 +387,16 @@
 			</article>
 			<article
 				id="chat-users-detail"
-				class="chat__open__detail w-[25%] h-full bg-white border-l"
+				class="chat__open__detail h-full bg-white border-l transition-all duration-300 ease-in-out"
+				:class="{
+					hidden: !isDetail,
+					'block absolute top-0 w-full md:w-[30%] md:relative z-20':
+						isDetail,
+				}"
 			>
-				<div
-					class="chat__detail__header flex flex-col justify-center items-center pb-6 pt-8"
-				>
-					<img
-						:src="icons.avatarBig"
-						alt=""
-						class="w-[96px] h-[96px]"
-					/>
-					<span class="font-medium text-xl mt-4"
-						>Roymarthen Ispar</span
-					>
-				</div>
-				<div class="chat__detail__main max-w-[80%] mx-auto">
-					<div
-						class="chat__detail__data__wrapper flex flex-row justify-between items-center mb-4"
-					>
-						<div
-							class="chat__data__title flex flex-row justify-center items-center"
-						>
-							<Icon
-								icon="pixelarticons:buildings"
-								class="text-2xl text-[#000000E5] hover:text-[#4EC1B6]"
-							/>
-							<span class="ml-2 font-medium text-sm"
-								>Company</span
-							>
-						</div>
-						<div class="chat__data">
-							<span class="text-sm">Simpson Co.</span>
-						</div>
-					</div>
-					<div
-						class="chat__detail__data__wrapper flex flex-row justify-between items-center mb-4"
-					>
-						<div
-							class="chat__data__title flex flex-row justify-center items-center"
-						>
-							<Icon
-								icon="bx:user"
-								class="text-2xl text-[#000000E5] hover:text-[#4EC1B6]"
-							/>
-							<span class="ml-2 font-medium text-sm">Role</span>
-						</div>
-						<div class="chat__data">
-							<span class="text-sm">Design</span>
-						</div>
-					</div>
-					<div
-						class="chat__detail__data__wrapper flex flex-row justify-between items-center mb-4"
-					>
-						<div
-							class="chat__data__title flex flex-row justify-center items-center"
-						>
-							<Icon
-								icon="akar-icons:home-alt1"
-								class="text-2xl text-[#000000E5] hover:text-[#4EC1B6]"
-							/>
-							<span class="ml-2 font-medium text-sm">Home</span>
-						</div>
-						<div class="chat__data">
-							<span class="text-sm">(435) 4322-443.</span>
-						</div>
-					</div>
-					<div
-						class="chat__detail__data__wrapper flex flex-row justify-between items-center mb-4"
-					>
-						<div
-							class="chat__data__title flex flex-row justify-center items-center"
-						>
-							<Icon
-								icon="eva:email-outline"
-								class="text-2xl text-[#000000E5] hover:text-[#4EC1B6]"
-							/>
-							<span class="ml-2 font-medium text-sm">Email</span>
-						</div>
-						<div class="chat__data">
-							<span class="text-sm">yor@zidy.com</span>
-						</div>
-					</div>
-					<div
-						class="chat__detail__data__wrapper flex flex-row justify-between items-center mb-4"
-					>
-						<div
-							class="chat__data__title flex flex-row justify-center items-center"
-						>
-							<Icon
-								icon="akar-icons:calendar"
-								class="text-2xl text-[#000000E5] hover:text-[#4EC1B6]"
-							/>
-							<span class="ml-2 font-medium text-sm"
-								>Follow-up</span
-							>
-						</div>
-						<div class="chat__data">
-							<span class="text-sm">Aprl 21, 2022</span>
-						</div>
-					</div>
-					<div
-						class="chat__detail__data__wrapper flex flex-row justify-between items-center mb-4"
-					>
-						<div
-							class="chat__data__title flex flex-row justify-center items-center"
-						>
-							<Icon
-								icon="uil:notes"
-								class="text-2xl text-[#000000E5] hover:text-[#4EC1B6]"
-							/>
-							<span class="ml-2 font-medium text-sm">Notes</span>
-						</div>
-						<div class="chat__data">
-							<span class="text-sm">New Project.</span>
-						</div>
-					</div>
-					<div
-						class="chat__detail__data__wrapper flex flex-row justify-between items-center mb-4"
-					>
-						<div
-							class="chat__data__title flex flex-row justify-center items-center"
-						>
-							<Icon
-								icon="bx:message-square-check"
-								class="text-2xl text-[#000000E5] hover:text-[#4EC1B6]"
-							/>
-							<span class="ml-2 font-medium text-sm">User</span>
-						</div>
-						<div class="chat__data">
-							<input
-								type="checkbox"
-								class="checked:bg-[#4EC1B6]"
-							/>
-						</div>
-					</div>
-					<div
-						class="chat__detail__data__wrapper flex flex-row justify-between items-center mb-4"
-					>
-						<a
-							href="#"
-							class="chat__data__title flex flex-row justify-center items-center cursor-pointer"
-						>
-							<Icon
-								icon="akar-icons:plus"
-								class="text-2xl text-[#4EC1B6] hover:text-[#4EC1B6]"
-							/>
-							<span
-								class="ml-2 font-medium text-sm text-[#4EC1B6] underline"
-								>Add a property</span
-							>
-						</a>
-						<div class="chat__data"></div>
-					</div>
-				</div>
+				<detail-user-chat />
 			</article>
 		</article>
 	</section>
+	<modal-add-chat :id="idModalAdd" />
 </template>
-
-<script>
-import { Icon } from "@iconify/vue"
-import { mapGetters, mapState } from "vuex"
-import chatAvatar from "../assets/icons/chatAvatar.png?url"
-import avatarSmall from "../assets/icons/avatarSmall.png?url"
-import avatarBig from "../assets/icons/avatarBig.png?url"
-import edit from "../assets/icons/edit.svg?url"
-
-export default {
-	name: "ChatView",
-	components: {
-		Icon,
-	},
-	data() {
-		return {
-			icons: {
-				chatAvatar,
-				avatarSmall,
-				avatarBig,
-				edit,
-			},
-		}
-	},
-	computed: {
-		...mapState(["auth"]),
-		...mapGetters(["messages/myMessages"]),
-	},
-	mounted() {},
-	methods: {
-		myMessages() {
-			return this["messages/myMessages"]
-		},
-		filterUser(users) {
-			return users.find((user) => user.id !== this.auth.auth.user_id)
-		},
-	},
-}
-</script>

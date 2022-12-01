@@ -2,49 +2,53 @@
     {
         "id": 1,
         "name": "John Doe",
-        "compoany": "singapure",
+        "company": "singapure",
         "role": "Design",
         "home": "1111",
         "email": "jhon@example.com",
         "follow_up": "01 Januari 2020",
         "notes": "project",
         "user": true,
+        "phone": "08991234",
         "messages": []
     },
     {
         "id": 2,
         "name": "Jane Doe",
-        "compoany": "singapure",
+        "company": "singapure",
         "role": "Design",
         "home": "1111",
         "email": "jane@example.com",
         "follow_up": "01 Januari 2020",
         "notes": "project",
         "user": true,
+        "phone": "5456671",
         "messages": []
     },
     {
         "id": 3,
         "name": "John Smith",
-        "compoany": "singapure",
+        "company": "singapure",
         "role": "Design",
         "home": "1111",
         "email": "johnsmith@example",
         "follow_up": "01 Januari 2020",
         "notes": "project",
         "user": true,
+        "phone": "0776655",
         "messages": []
     },
     {
         "id": 4,
         "name": "Jane Smith",
-        "compoany": "singapure",
+        "company": "singapure",
         "role": "Design",
         "home": "1111",
         "email": "janesmith@example.com",
         "follow_up": "01 Januari 2020",
         "notes": "project",
         "user": true,
+        "phone": "0776655",
         "messages": []
     }
 ]

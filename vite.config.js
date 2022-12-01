@@ -5,6 +5,12 @@ import svgLoader from "vite-svg-loader"
 
 // https://vitejs.dev/config/
 export default defineConfig({
+	resolve: {
+		isCustomElement: (tag) => tag.startsWith("Icon"),
+		alias: {
+			"@": "/src",
+		},
+	},
 	plugins: [
 		vue(),
 		eslintPlugin({

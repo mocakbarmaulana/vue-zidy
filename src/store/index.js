@@ -1,6 +1,7 @@
 import { createStore } from "vuex"
-import messages from "./modules/messages"
+import chats from "./modules/chats"
 import auth from "./modules/auth"
+import users from "./modules/users"
 
 export default createStore({
 	state: {
@@ -32,6 +33,7 @@ export default createStore({
 	},
 	modules: {
 		auth,
-		messages,
+		users,
+		chats,
 	},
 })

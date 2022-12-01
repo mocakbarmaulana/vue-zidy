@@ -28,28 +28,28 @@
                 "id": 2,
                 "user_id": 2,
                 "message": "Whats up?",
-                "created_at": "2018-01-01 00:00:00",
+                "created_at": "2018-01-01 01:30:00",
                 "updated_at": "2018-01-01 00:00:00"
             },
             {
                 "id": 3,
                 "user_id": 1,
                 "message": "Nothing much, you?",
-                "created_at": "2018-01-01 00:00:00",
+                "created_at": "2018-01-01 01:30:00",
                 "updated_at": "2018-01-01 00:00:00"
             },
             {
                 "id": 4,
                 "user_id": 2,
                 "message": "Same",
-                "created_at": "2018-01-01 00:00:00",
+                "created_at": "2018-01-01 01:31:00",
                 "updated_at": "2018-01-01 00:00:00"
             },
             {
                 "id": 5,
                 "user_id": 2,
                 "message": "Lately I've been thinking about the meaning of life",
-                "created_at": "2018-01-01 00:00:00",
+                "created_at": "2018-01-01 13:00:00",
                 "updated_at": "2018-01-01 00:00:00"
             }
         ]
@@ -104,7 +104,7 @@
             {
                 "id": 10,
                 "user_id": 3,
-                "message": "Lately I've been thinking about the meaning of life",
+                "message": "Lately I've been thinking about the meaning of life HEHEHEH",
                 "created_at": "2018-01-01 00:00:00",
                 "updated_at": "2018-01-01 00:00:00"
             }
@@ -159,7 +159,7 @@
             {
                 "id": 15,
                 "user_id": 4,
-                "message": "Lately I've been thinking about the meaning of life",
+                "message": "Lately I've been thinking about the meaning of life You Know?",
                 "created_at": "2018-01-01 00:00:00",
                 "updated_at": "2018-01-01 00:00:00"
             }
